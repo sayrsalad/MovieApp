@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="Sign in"
             android:textColor="@color/design_default_color_primary"
-            android:id="@+id/txtSignUp"
+            android:id="@+id/txtSignIn"
             android:layout_marginRight="6dp"/>
 
     </LinearLayout>
