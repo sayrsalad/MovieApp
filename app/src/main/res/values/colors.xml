@@ -13,4 +13,5 @@
     <color name="colorGrey">#181818</color>
     <color name="colorYellow">#F6E71D</color>
     <color name="colorDarkYellow">#F5D10D</color>
+    <color name="colorRedError">#F84240</color>
 </resources>

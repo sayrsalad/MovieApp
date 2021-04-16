@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">Movie App</string>
+    <string name="nameHint">Name</string>
+    <string name="emailHint">E-mail</string>
+    <string name="passwordHint">Password</string>
+    <string name="confirmHint">Confirm Password</string>
+    <string name="btnTextSignIn">Sign in</string>
+    <string name="btnTextSignUp">Sign up</string>
+    <string name="txtTextSignIn">Sign in</string>
+    <string name="txtTextAlready">Already have an account?</string>
+    <string name="txtTextDont">Don\'t have an account?</string>
+    <string name="txtTextSignUp">Sign up</string>
 </resources>
