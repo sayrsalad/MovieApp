@@ -1,6 +1,7 @@
 package com.example.movieapp.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,8 +23,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.movieapp.AuthActivity;
 import com.example.movieapp.Constant;
+import com.example.movieapp.HomeActivity;
 import com.example.movieapp.R;
+import com.example.movieapp.UserInfoActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -192,9 +196,12 @@ public class SignUpFragment extends Fragment {
                     JSONObject user = object.getJSONObject("user");
                     SharedPreferences userPref = getActivity().getApplicationContext().getSharedPreferences("user", getContext().MODE_PRIVATE);
                     SharedPreferences.Editor editor = userPref.edit();
-//                    editor.putString("access_token", object.getString("access_token"));
+                    editor.putString("access_token", object.getString("access_token"));
                     editor.putString("name", user.getString("name"));
+                    editor.putBoolean("isLoggedIn", true);
                     editor.apply();
+                    startActivity(new Intent(((AuthActivity)getContext()), UserInfoActivity.class));
+                    ((AuthActivity) getContext()).finish();
                     Toast.makeText(getContext(), "Register Successful", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
