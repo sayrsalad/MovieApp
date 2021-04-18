@@ -152,6 +152,7 @@ public class SignInFragment extends Fragment {
             }
             dialog.dismiss();
         }, error -> {
+            Toast.makeText(getContext(), "Login Unsuccessful", Toast.LENGTH_SHORT).show();
             error.printStackTrace();
             dialog.dismiss();
         }){

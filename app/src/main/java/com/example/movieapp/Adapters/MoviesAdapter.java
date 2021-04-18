@@ -37,7 +37,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
     @Override
     public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
         Movie movie = list.get(position);
-        Picasso.get().load(Constant.URL+"storage/posters/" + movie.getMovie_poster()).fit().centerCrop().into(holder.imgMoviePoster);
+        Picasso.get().load(Constant.URL+"storage/posters/" + movie.getMovie_poster()).fit().into(holder.imgMoviePoster);
         holder.txtMovieTitle.setText(movie.getMovie_title());
         holder.txtMovieDesc.setText(movie.getMovie_story());
         holder.txtMovieRelease.setText(movie.getMovie_release_date());

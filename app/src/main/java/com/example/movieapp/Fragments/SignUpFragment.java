@@ -206,6 +206,7 @@ public class SignUpFragment extends Fragment {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(getContext(), "Register Unsuccessful", Toast.LENGTH_SHORT).show();
             }
             dialog.dismiss();
 
