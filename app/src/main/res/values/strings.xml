@@ -10,4 +10,7 @@
     <string name="txtTextAlready">Already have an account?</string>
     <string name="txtTextDont">Don\'t have an account?</string>
     <string name="txtTextSignUp">Sign up</string>
+
+    <string name="navigation_draw_open">Open Navigation Draw</string>
+    <string name="navigation_draw_close">Close Navigation Draw</string>
 </resources>
