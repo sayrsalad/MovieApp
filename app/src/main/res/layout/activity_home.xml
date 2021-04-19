@@ -5,6 +5,7 @@
     android:id="@+id/layoutHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat"
     tools:context=".HomeActivity"
     tools:openDrawer="start"
     android:fitsSystemWindows="true">
@@ -51,7 +52,7 @@
         app:menu="@menu/menu_main"
         android:background="@color/colorGrey"
         app:itemTextColor="@color/colorWhite"
-        app:itemIconTint="@color/colorYellow"
+        app:itemIconTint="@color/colorWhite"
         android:theme="@style/AppTheme.NoActionBar"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

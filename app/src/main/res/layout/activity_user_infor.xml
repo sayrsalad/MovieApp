@@ -7,7 +7,9 @@
     android:padding="50dp"
     android:orientation="vertical"
     tools:context=".UserInfoActivity"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:theme="@style/TextViewStyle"
+    android:background="@color/colorBackground">
     
     <TextView
         android:layout_width="match_parent"
@@ -15,7 +17,8 @@
         android:textSize="30sp"
         android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
-        android:text="User Info"/>
+        android:text="User Info"
+        android:textColor="@color/white"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="120dp"
@@ -29,18 +32,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Select Photo"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/colorYellow"
         android:gravity="center_horizontal"
         android:id="@+id/txtSelectPhoto"
         android:textSize="16sp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:textFontWeight="700"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:id="@+id/txtLayoutNameUserInfo"
         android:layout_marginBottom="6dp"
         android:layout_height="wrap_content"
-        app:errorTextColor="@color/colorRedError">
+        app:errorTextColor="@color/colorRedError"
+        android:textColorHint="@color/colorWhite"
+        android:theme="@style/InputStyle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -48,7 +54,10 @@
             android:id="@+id/txtNameUserInfo"
             android:hint="Name"
             android:inputType="textEmailAddress"
-            android:textSize="15sp"/>
+            android:textSize="15sp"
+            android:background="@android:color/transparent"
+            android:theme="@style/InputStyle"
+            android:textColor="@color/colorWhite"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,6 +70,7 @@
         android:textColor="@color/colorWhite"
         android:layout_marginBottom="70dp"
         android:textSize="17sp"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:theme="@style/ButtonStyle"/>
 
 </LinearLayout>

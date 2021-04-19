@@ -4,13 +4,14 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
-    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
     android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorDarkGrey">
 
 
         <FrameLayout
@@ -24,7 +25,6 @@
                 android:layout_marginLeft="10dp"/>
 
         </FrameLayout>
-
 
 
         <LinearLayout
@@ -43,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
-                android:textColor="#222222"
-                android:textSize="20sp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/txtMovieDesc"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtMovieTitle"
                 android:text="Desc"
-                android:textColor="#999999" />
+                android:textColor="@color/colorWhite"/>
 
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtMovieDesc"
                 android:text="Date"
-                android:textColor="#999999" />
+                android:textColor="@color/colorWhite"/>
 
         </LinearLayout>
 
