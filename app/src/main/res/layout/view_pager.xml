@@ -3,8 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="20dp"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
+    android:background="@color/colorBackground"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <ImageView
         android:id="@+id/imgViewPager"
@@ -21,12 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:gravity="center_horizontal"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/txtDescViewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OnBoardActivity">
+    tools:context=".OnBoardActivity"
+    android:fitsSystemWindows="true">
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
@@ -21,7 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Skip"
-            android:id="@+id/btnLeft" />
+            android:id="@+id/btnLeft"
+            android:backgroundTint="@color/colorGrey"/>
 
         <LinearLayout
             android:id="@+id/dotsLayout"
@@ -36,7 +38,8 @@
             android:layout_height="wrap_content"
             android:text="Next"
             android:layout_alignParentRight="true"
-            android:id="@+id/btnRight" />
+            android:id="@+id/btnRight"
+            android:backgroundTint="@color/colorGrey"/>
 
     </RelativeLayout>
 

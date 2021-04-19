@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:padding="50dp"
     android:orientation="vertical"
-    tools:context=".UserInfoActivity">
+    tools:context=".UserInfoActivity"
+    android:fitsSystemWindows="true">
     
     <TextView
         android:layout_width="match_parent"

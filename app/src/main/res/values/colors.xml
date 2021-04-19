@@ -9,10 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorBlack">#020202</color>
+    <color name="colorDarkGrey">#141414</color>
+    <color name="colorGrey">#292929</color>
     <color name="colorLightGrey">#585858</color>
-    <color name="colorGrey">#181818</color>
-    <color name="colorDarkGrey">#292929</color>
     <color name="colorYellow">#F6E71D</color>
     <color name="colorDarkYellow">#F5D10D</color>
     <color name="colorRedError">#F84240</color>
+    <color name="colorBackground">#141414</color>
 </resources>
