@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginTop="10dp"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/colorDarkGrey">
+
+
+        <FrameLayout
+            android:layout_width="100dp"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:id="@+id/imgActorProfile"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="10dp"/>
+
+        </FrameLayout>
+
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16sp"
+            android:paddingTop="10sp"
+            android:paddingRight="16sp"
+            android:paddingBottom="10sp">
+
+
+            <TextView
+                android:id="@+id/txtActorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/txtActorNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtMovieTitle"
+                android:text="Desc"
+                android:textColor="@color/colorWhite"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
