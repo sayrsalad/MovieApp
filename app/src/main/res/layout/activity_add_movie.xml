@@ -11,24 +11,23 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="   "
-        android:elevation="2dp">
+        android:elevation="2dp"
+        app:title="   ">
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:background="@android:color/transparent"
             android:layout_marginRight="12dp"
-            android:onClick="cancelAddMovie"/>
+            android:background="@android:color/transparent"
+            android:onClick="cancelMovie"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Movie"
             android:textColor="@color/colorWhite"
-            android:fontFamily="@font/montserrat_regular"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     </com.google.android.material.appbar.MaterialToolbar>
 
@@ -39,122 +38,209 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginTop="6dp">
-            
+            android:padding="16dp">
+
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
                 android:id="@+id/imgAddMoviePoster"
-                android:layout_marginBottom="16dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:adjustViewBounds="true" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Change Photo"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
-                android:textColor="@color/colorYellow"
                 android:gravity="center_horizontal"
-                android:onClick="changeMoviePoster"/>
-            
-            <EditText
+                android:onClick="changeMoviePoster"
+                android:paddingTop="3dp"
+                android:text="Change Photo"
+                android:textColor="@color/colorYellow"
+                android:textSize="15sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutTitle"
                 android:layout_width="match_parent"
-                android:hint="Title"
-                android:textColorHint="@color/colorWhite"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:id="@+id/txtAddMovieTitle"
-                android:layout_marginBottom="10sp"
-                android:gravity="left"
-                android:textColor="@color/colorWhite"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:hint="Story"
+                android:layout_marginBottom="10dp"
                 android:textColorHint="@color/colorWhite"
-                android:layout_height="100sp"
-                android:fontFamily="@font/montserrat_regular"
-                android:id="@+id/txtAddMovieStory"
-                android:layout_marginBottom="10sp"
-                android:gravity="left"
-                android:inputType="textMultiLine"
-                android:textColor="@color/colorWhite"/>
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Title"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutStory"
                 android:layout_width="match_parent"
-                android:hint="Release Date"
-                android:textColorHint="@color/colorWhite"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:id="@+id/txtAddMovieReleaseDate"
-                android:layout_marginBottom="10sp"
-                android:gravity="left"
-                android:textColor="@color/colorWhite"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:hint="Film Duration"
+                android:layout_marginBottom="10dp"
                 android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtStory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Story"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutReleaseDate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:id="@+id/txtAddMovieFilmDuration"
-                android:layout_marginBottom="10sp"
-                android:gravity="left"
-                android:textColor="@color/colorWhite"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:hint="Additional Info"
+                android:layout_marginBottom="10dp"
                 android:textColorHint="@color/colorWhite"
-                android:layout_height="100sp"
-                android:fontFamily="@font/montserrat_regular"
-                android:id="@+id/txtAddMovieAdditionalInfo"
-                android:layout_marginBottom="10sp"
-                android:gravity="left"
-                android:inputType="textMultiLine"
-                android:textColor="@color/colorWhite"/>
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError">
 
-            <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtReleaseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Release Date"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"
+                    android:focusable="false"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutFilmDuration"
                 android:layout_width="match_parent"
-                android:hint="Genre"
-                android:textColorHint="@color/colorWhite"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:id="@+id/txtAddMovieGenre"
-                android:layout_marginBottom="10sp"
-                android:gravity="left"
-                android:textColor="@color/colorWhite"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:hint="Certificate"
+                android:layout_marginBottom="10dp"
                 android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtFilmDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Film Duration "
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutAdditionalInfo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_regular"
-                android:id="@+id/txtAddMovieCertificate"
-                android:layout_marginBottom="10sp"
-                android:gravity="left"
-                android:textColor="@color/colorWhite"/>
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtAdditionalInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Additional Info"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError"
+                app:endIconMode="dropdown_menu"
+                app:endIconTint="@color/colorWhite"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="Genre"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"
+                    android:focusable="false"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutCertificate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError"
+                app:endIconMode="dropdown_menu"
+                app:endIconTint="@color/colorWhite"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtCertificate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="Certificate"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:popupBackground="@color/colorGrey"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/btnAddMovie"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
-                android:text="Add"
-                android:id="@+id/btnAddMovie"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="70dp"
                 android:background="@drawable/btn_round"
                 android:backgroundTint="@color/colorGrey"
-                android:textColor="@color/colorWhite"
-                android:layout_marginBottom="70dp"
-                android:textSize="17sp"
+                android:elevation="4dp"
+                android:text="Add"
                 android:textAllCaps="false"
-                android:theme="@style/ButtonStyle"
-                android:elevation="4dp"/>
+                android:textColor="@color/colorYellow"
+                android:textSize="17sp"
+                android:theme="@style/ButtonStyle" />
 
-            
+
         </LinearLayout>
 
     </ScrollView>

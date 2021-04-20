@@ -20,6 +20,7 @@
         <item name="colorControlActivated">@color/colorWhite</item>
         <item name="colorControlHighlight">@color/colorWhite</item>
         <item name="android:colorEdgeEffect">@color/colorYellow</item>
+        <item name="colorSurface">@color/colorGrey</item>
     </style>
 
     <style name="Theme.BottomAppBar" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -90,6 +91,28 @@
         <item name="colorPrimary">@color/colorWhite</item>
     </style>
 
-    <style name="DateDialog" parent=""
+    <style name="MyAppTheme" parent="android:Theme.Material">
+        <item name="android:dialogTheme">@style/MyDialogTheme</item>
+        <item name="android:datePickerStyle">@style/MyDatePicker</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="android:Theme.Material.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePicker</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:textColorSecondary">@color/colorYellow</item>
+    </style>
+
+    <style name="MyDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+    </style>
+
+    <style name="myTextInputLabel" parent="TextAppearance.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="android:textColorHint">@android:color/tertiary_text_dark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@android:color/tertiary_text_dark</item>
+        <item name="colorControlActivated">@android:color/holo_orange_light</item>
+    </style>
 
 </resources>

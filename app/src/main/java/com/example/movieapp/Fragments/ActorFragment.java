@@ -1,7 +1,10 @@
 package com.example.movieapp.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +27,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.movieapp.Adapters.ActorsAdapter;
 import com.example.movieapp.Adapters.MoviesAdapter;
+import com.example.movieapp.AddActorActivity;
+import com.example.movieapp.AddMovieActivity;
 import com.example.movieapp.Constant;
 import com.example.movieapp.HomeActivity;
 import com.example.movieapp.Models.Actor;
@@ -48,6 +53,7 @@ public class ActorFragment extends Fragment {
     private Toolbar toolbar;
     private SharedPreferences sharedPreferences;
     private FloatingActionButton btnAddActor;
+    private static final int GALLERY_ADD_POST = 2;
 
     @Nullable
     @Override
@@ -76,8 +82,20 @@ public class ActorFragment extends Fragment {
         });
 
         btnAddActor.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Add Actor Fragment", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(Intent.ACTION_PICK);
+            i.setType("image/*");
+            startActivityForResult(i, GALLERY_ADD_POST);
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode==GALLERY_ADD_POST && resultCode== Activity.RESULT_OK){
+            Uri imgUri = data.getData();
+            Intent i = new Intent(this.getContext(), AddActorActivity.class);
+            i.setData(imgUri);
+            startActivity(i);
+        }
     }
 
     private void getActors() {

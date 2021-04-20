@@ -14,4 +14,7 @@ public class Constant {
     public static final String ACTORS = HOME + "/actor ";
     public static final String PRODUCERS = HOME + "/producer ";
 
+    public static final String GENRES = HOME + "/genre ";
+    public static final String CERTIFICATES = HOME + "/certificate ";
+
 }

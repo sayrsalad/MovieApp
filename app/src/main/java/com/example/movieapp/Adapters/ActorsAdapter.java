@@ -39,7 +39,7 @@ public class ActorsAdapter extends RecyclerView.Adapter<ActorsAdapter.ActorHolde
         Actor actor = list.get(position);
         Picasso.get().load(Constant.URL+"storage/actor_profiles/" + actor.getActor_img()).resize(200, 0).into(holder.imgActorProfile);
         holder.txtActorName.setText(actor.getActor_fname() + " " + actor.getActor_lname());
-        holder.txtActorNotes.setText("     " + actor.getActor_notes());
+        holder.txtActorNotes.setText(actor.getActor_notes());
     }
 
     @Override

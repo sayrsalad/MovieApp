@@ -16,4 +16,5 @@
     <color name="colorDarkYellow">#F5D10D</color>
     <color name="colorRedError">#F84240</color>
     <color name="colorBackground">#141414</color>
+    <color name="transparent">@android:color/transparent</color>
 </resources>
