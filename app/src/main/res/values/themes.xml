@@ -90,4 +90,6 @@
         <item name="colorPrimary">@color/colorWhite</item>
     </style>
 
+    <style name="DateDialog" parent=""
+
 </resources>
