@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +29,7 @@ import com.example.movieapp.HomeActivity;
 import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Movie;
 import com.example.movieapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +47,7 @@ public class ActorFragment extends Fragment {
     private ActorsAdapter actorsAdapter;
     private Toolbar toolbar;
     private SharedPreferences sharedPreferences;
+    private FloatingActionButton btnAddActor;
 
     @Nullable
     @Override
@@ -60,6 +64,7 @@ public class ActorFragment extends Fragment {
         refreshLayout = view.findViewById(R.id.swipeActor);
         toolbar = view.findViewById(R.id.toolbar);
         ((HomeActivity)getContext()).setSupportActionBar(toolbar);
+        btnAddActor = view.findViewById(R.id.btnAddActor);
 
         getActors();
 
@@ -68,6 +73,10 @@ public class ActorFragment extends Fragment {
             public void onRefresh() {
                 getActors();
             }
+        });
+
+        btnAddActor.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Add Actor Fragment", Toast.LENGTH_SHORT).show();
         });
     }
 

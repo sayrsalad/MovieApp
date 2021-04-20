@@ -15,13 +15,13 @@
 
 
         <FrameLayout
-            android:layout_width="150dp"
-            android:layout_height="250dp">
+            android:layout_width="100dp"
+            android:layout_height="150dp">
 
             <ImageView
-                android:id="@+id/imgMoviePoster"
-                android:layout_width="150dp"
-                android:layout_height="250dp"
+                android:id="@+id/imgProducerProfile"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="10dp"/>
 
         </FrameLayout>
@@ -38,7 +38,7 @@
 
 
             <TextView
-                android:id="@+id/txtMovieTitle"
+                android:id="@+id/txtProducerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
@@ -46,22 +46,19 @@
                 android:textSize="20sp"/>
 
             <TextView
-                android:id="@+id/txtMovieDesc"
+                android:id="@+id/txtProducerEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtMovieTitle"
-                android:text="Desc"
-                android:textColor="@color/colorWhite"
-                android:justificationMode="inter_word"/>
-
+                android:text="Email"
+                android:textColor="@color/colorWhite"/>
 
             <TextView
-                android:id="@+id/txtMovieRelease"
+                android:id="@+id/txtProducerWebsite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtMovieDesc"
-                android:text="Date"
+                android:text="Website"
                 android:textColor="@color/colorWhite"/>
+
 
         </LinearLayout>
 
