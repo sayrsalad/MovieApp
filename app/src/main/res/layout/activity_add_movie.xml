@@ -79,7 +79,7 @@
                     android:hint="Title"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:theme="@style/InputStyle"/>
+                    android:theme="@style/InputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,7 +100,7 @@
                     android:hint="Story"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:theme="@style/InputStyle"/>
+                    android:theme="@style/InputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,12 +118,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:focusable="false"
                     android:hint="Release Date"
+                    android:inputType="none"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:theme="@style/InputStyle"
-                    android:focusable="false"
-                    android:inputType="none"/>
+                    android:theme="@style/InputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -144,7 +144,7 @@
                     android:hint="Film Duration "
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:theme="@style/InputStyle"/>
+                    android:theme="@style/InputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,21 +165,21 @@
                     android:hint="Additional Info"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:theme="@style/InputStyle"/>
+                    android:theme="@style/InputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayoutGenre"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:textColorHint="@color/colorWhite"
                 android:theme="@style/InputStyle"
-                app:errorTextColor="@color/colorRedError"
                 app:endIconMode="dropdown_menu"
                 app:endIconTint="@color/colorWhite"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                app:errorTextColor="@color/colorRedError">
 
                 <AutoCompleteTextView
                     android:id="@+id/txtGenre"
@@ -187,26 +187,29 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:backgroundTint="@android:color/transparent"
+                    android:dropDownWidth="300dp"
+                    android:dropDownHeight="200dp"
+                    android:dropDownSelector="@drawable/dlg_round"
+                    android:focusable="false"
                     android:hint="Genre"
+                    android:inputType="none"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:theme="@style/InputStyle"
-                    android:focusable="false"
-                    android:inputType="none"/>
+                    android:theme="@style/InputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayoutCertificate"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:textColorHint="@color/colorWhite"
                 android:theme="@style/InputStyle"
-                app:errorTextColor="@color/colorRedError"
                 app:endIconMode="dropdown_menu"
                 app:endIconTint="@color/colorWhite"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+                app:errorTextColor="@color/colorRedError">
 
                 <AutoCompleteTextView
                     android:id="@+id/txtCertificate"
@@ -214,13 +217,16 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:backgroundTint="@android:color/transparent"
+                    android:dropDownWidth="300dp"
+                    android:dropDownHeight="200dp"
+                    android:dropDownSelector="@drawable/dlg_round"
+                    android:focusable="false"
                     android:hint="Certificate"
+                    android:inputType="none"
+                    android:popupBackground="@color/colorGrey"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    android:theme="@style/InputStyle"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:popupBackground="@color/colorGrey"/>
+                    android:theme="@style/InputStyle" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

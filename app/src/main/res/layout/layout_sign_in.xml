@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/app_name"
         android:textSize="32sp"
-        android:fontFamily="@font/montserrat_regular"
+        android:font="@font/montserrat_regular"
         android:textColor="@color/colorWhite"
         android:gravity="center_horizontal"
         android:layout_marginTop="90dp"

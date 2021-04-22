@@ -13,16 +13,19 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -43,6 +46,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddMovieActivity extends AppCompatActivity {
@@ -55,6 +59,7 @@ public class AddMovieActivity extends AppCompatActivity {
     private Bitmap bitmap = null;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private SharedPreferences sharedPreferences;
+    private int genre_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +91,8 @@ public class AddMovieActivity extends AppCompatActivity {
 
         imgAddMoviePoster.setImageURI(getIntent().getData());
 
-        txtGenre.setDropDownBackgroundResource(R.color.colorGrey);
         getGenres();
         getCertificates();
-
 
         try {
             bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), getIntent().getData());
@@ -120,6 +123,7 @@ public class AddMovieActivity extends AppCompatActivity {
             }
         };
 
+
     }
 
     private void getGenres() {
@@ -131,13 +135,17 @@ public class AddMovieActivity extends AppCompatActivity {
                 JSONObject object = new JSONObject(response);
                 if (object.getBoolean("success")) {
                     JSONArray array = new JSONArray(object.getString("genres"));
+                    if (array.length() < 4) {
+                        txtCertificate.setDropDownHeight(android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+                    }
                     for ( int i = 0; i < array.length(); i++) {
-                        JSONObject movieObject = array.getJSONObject(i);
-                        String genre = movieObject.getString("genre_name");
-                        arrayList.add(genre);
+                        JSONObject genreObject = array.getJSONObject(i);
+                        String genre_name = genreObject.getString("genre_name");
+                        arrayList.add(genre_name);
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                            AddMovieActivity.this,
+                            this,
                                 R.layout.custom_dropdown_item,
+                                R.id.text_view_list_item,
                                 arrayList
                         );
                         txtGenre.setAdapter(arrayAdapter);
@@ -164,6 +172,48 @@ public class AddMovieActivity extends AppCompatActivity {
     }
 
     private void getCertificates() {
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        StringRequest request = new StringRequest(Request.Method.GET, Constant.CERTIFICATES, response -> {
+
+            try {
+                JSONObject object = new JSONObject(response);
+                if (object.getBoolean("success")) {
+                    JSONArray array = new JSONArray(object.getString("certificates"));
+                    if (array.length() < 4) {
+                        txtCertificate.setDropDownHeight(android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
+                    }
+                    for ( int i = 0; i < array.length(); i++) {
+                        JSONObject certificateObject = array.getJSONObject(i);
+                        String certificate = certificateObject.getString("certificate_name");
+                        arrayList.add(certificate);
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                                this,
+                                R.layout.custom_dropdown_item,
+                                R.id.text_view_list_item,
+                                arrayList
+                        );
+                        txtCertificate.setAdapter(arrayAdapter);
+                    }
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }, error -> {
+            error.printStackTrace();
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = sharedPreferences.getString("access_token", "");
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Authorization", "Bearer" + token);
+                return map;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext() );
+        queue.add(request);
     }
 
 
@@ -191,4 +241,6 @@ public class AddMovieActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }

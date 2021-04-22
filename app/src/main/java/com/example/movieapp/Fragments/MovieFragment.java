@@ -1,20 +1,32 @@
 package com.example.movieapp.Fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -24,32 +36,43 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.movieapp.Adapters.CastsAdapter;
 import com.example.movieapp.Adapters.MoviesAdapter;
 import com.example.movieapp.AddMovieActivity;
 import com.example.movieapp.Constant;
 import com.example.movieapp.HomeActivity;
+import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Movie;
 import com.example.movieapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.Inflater;
 
-public class MovieFragment extends Fragment {
+public class MovieFragment extends Fragment implements MoviesAdapter.OnItemListener{
+    private static final String TAG = "MovieFragment";
     private View view;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerView, movieCasts;
     private ArrayList<Movie> arrayList;
+
     private SwipeRefreshLayout refreshLayout;
     private MoviesAdapter moviesAdapter;
+    private CastsAdapter castsAdapter;
     private Toolbar toolbar;
     private SharedPreferences sharedPreferences;
     private FloatingActionButton btnAddMovie;
     private static final int GALLERY_ADD_POST = 2;
+    private Dialog dialog;
+    private TextView txtDialogMovieTitle, txtDialogMovieStory;
+    private ImageView imgDialogMoviePoster;
 
     @Nullable
     @Override
@@ -117,10 +140,27 @@ public class MovieFragment extends Fragment {
                         movie.setMovie_additional_info(movieObject.getString("movie_additional_info"));
                         movie.setMovie_poster(movieObject.getString("movie_poster"));
 
+                        JSONArray actorArray = movieObject.getJSONArray("actor");
+                        ArrayList<Actor> actorArrayList = new ArrayList<Actor>();
+
+                        for ( int a = 0; a < actorArray.length(); a++) {
+                            JSONObject actorObject = actorArray.getJSONObject(a);
+
+                            Actor actor = new Actor();
+                            actor.setActor_ID(actorObject.getInt("actor_ID"));
+                            actor.setActor_img(actorObject.getString("actor_img"));
+                            actor.setActor_fname(actorObject.getString("actor_fname"));
+                            actor.setActor_lname(actorObject.getString("actor_lname"));
+                            actor.setActor_notes(actorObject.getString("actor_notes"));
+                            actorArrayList.add(actor);
+                        }
+
+                        movie.setActor(actorArrayList);
+
                         arrayList.add(movie);
                     }
 
-                    moviesAdapter = new MoviesAdapter(getContext(), arrayList);
+                    moviesAdapter = new MoviesAdapter(getContext(), arrayList, this);
                     recyclerView.setAdapter(moviesAdapter);
                 }
             } catch (JSONException e) {
@@ -143,5 +183,34 @@ public class MovieFragment extends Fragment {
         };
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Movie movie = arrayList.get(position);
+        dialog = new Dialog((HomeActivity)getContext());
+        dialog.setContentView(R.layout.layout_movie_dialog);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
+        ArrayList<Actor> actors = movie.getActor();
+
+        imgDialogMoviePoster  = dialog.findViewById(R.id.imgDialogMoviePoster);
+        txtDialogMovieTitle  = dialog.findViewById(R.id.txtDialogMovieTitle);
+        txtDialogMovieStory = dialog.findViewById(R.id.txtDialogMovieStory);
+
+        movieCasts = dialog.findViewById(R.id.movieCasts);
+        movieCasts.setLayoutManager(new GridLayoutManager(dialog.getContext(), 3));
+
+        Picasso.get().load(Constant.URL+"storage/posters/" + movie.getMovie_poster()).resize(0, 4000).into(imgDialogMoviePoster);
+        txtDialogMovieTitle.setText(movie.getMovie_title());
+        txtDialogMovieStory.setText(movie.getMovie_story());
+
+        castsAdapter = new CastsAdapter(dialog.getContext(), actors);
+        movieCasts.setAdapter(castsAdapter);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+
     }
 }

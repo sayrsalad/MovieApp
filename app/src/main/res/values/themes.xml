@@ -21,6 +21,8 @@
         <item name="colorControlHighlight">@color/colorWhite</item>
         <item name="android:colorEdgeEffect">@color/colorYellow</item>
         <item name="colorSurface">@color/colorGrey</item>
+
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>
 
     <style name="Theme.BottomAppBar" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -113,6 +115,16 @@
         <item name="colorAccent">@color/white</item>
         <item name="colorControlNormal">@android:color/tertiary_text_dark</item>
         <item name="colorControlActivated">@android:color/holo_orange_light</item>
+    </style>
+    
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+    
+    <style name="DialogTheme">
+        <item name="fontFamily">@font/notosanssc_regular</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
 </resources>
