@@ -2,30 +2,30 @@ package com.example.movieapp.Models;
 
 public class Certificate {
 
-    private int genre_ID;
-    private String genre_name, genre_status;
+    private int certificate_ID;
+    private String certificate_name, certificate_status;
 
-    public int getGenre_ID() {
-        return genre_ID;
+    public int getCertificate_ID() {
+        return certificate_ID;
     }
 
-    public void setGenre_ID(int genre_ID) {
-        this.genre_ID = genre_ID;
+    public void setCertificate_ID(int certificate_ID) {
+        this.certificate_ID = certificate_ID;
     }
 
-    public String getGenre_name() {
-        return genre_name;
+    public String getCertificate_name() {
+        return certificate_name;
     }
 
-    public void setGenre_name(String genre_name) {
-        this.genre_name = genre_name;
+    public void setCertificate_name(String certificate_name) {
+        this.certificate_name = certificate_name;
     }
 
-    public String getGenre_status() {
-        return genre_status;
+    public String getCertificate_status() {
+        return certificate_status;
     }
 
-    public void setGenre_status(String genre_status) {
-        this.genre_status = genre_status;
+    public void setCertificate_status(String certificate_status) {
+        this.certificate_status = certificate_status;
     }
 }

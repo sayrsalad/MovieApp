@@ -10,6 +10,9 @@ public class Movie implements Serializable {
     private Actor actor;
     private ArrayList<Actor> arrayList;
 
+    private Genre genre;
+    private Certificate certificate;
+
     public int getMovie_ID() {
         return movie_ID;
     }
@@ -100,5 +103,21 @@ public class Movie implements Serializable {
 
     public void setActor(ArrayList arrayList) {
         this.arrayList = arrayList;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Certificate getCertificate() {
+        return certificate;
+    }
+
+    public void setCertificate(Certificate certificate) {
+        this.certificate = certificate;
     }
 }

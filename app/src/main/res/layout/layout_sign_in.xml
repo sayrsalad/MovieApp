@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:paddingLeft="50dp"
-    android:paddingRight="50dp"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:fitsSystemWindows="true"
-    android:background="@color/colorBackground">
-    
+    android:orientation="vertical"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MOVIE APP"
-        android:textSize="32sp"
-        android:fontFamily="@font/montserrat_regular"
-        android:textFontWeight="900"
-        android:textColor="@color/colorYellow"
-        android:gravity="center_horizontal"
         android:layout_marginTop="90dp"
-        android:layout_marginBottom="80dp" />
+        android:layout_marginBottom="80dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center_horizontal"
+        android:text="MOVIE APP"
+        android:textColor="@color/colorYellow"
+        android:textFontWeight="900"
+        android:textSize="32sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLayoutEmailSignIn"
@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         android:textColorHint="@color/colorWhite"
+        android:theme="@style/InputStyle"
         app:errorTextColor="@color/colorRedError">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -38,47 +39,47 @@
             android:inputType="textEmailAddress"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:theme="@style/InputStyle"/>
+            android:theme="@style/InputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
         android:id="@+id/txtLayoutPasswordSignIn"
-        android:layout_marginBottom="30dp"
-        app:passwordToggleEnabled="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorTextColor="@color/colorRedError"
+        android:layout_marginBottom="30dp"
         android:textColorHint="@color/colorWhite"
-        app:passwordToggleTint="@color/colorWhite"
-        android:theme="@style/InputStyle">
+        android:theme="@style/InputStyle"
+        app:errorTextColor="@color/colorRedError"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorWhite">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPasswordSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtPasswordSignIn"
+            android:background="@android:color/transparent"
             android:hint="@string/passwordHint"
             android:inputType="textPassword"
+            android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:theme="@style/InputStyle"
-            android:textColor="@color/colorWhite"/>
+            android:theme="@style/InputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/btnSignIn"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:text="@string/btnTextSignIn"
-        android:id="@+id/btnSignIn"
+        android:layout_marginBottom="70dp"
         android:background="@drawable/btn_round"
         android:backgroundTint="@color/colorGrey"
-        android:textColor="@color/colorWhite"
-        android:layout_marginBottom="70dp"
-        android:textSize="17sp"
+        android:elevation="4dp"
+        android:text="@string/btnTextSignIn"
         android:textAllCaps="false"
-        android:theme="@style/ButtonStyle"
-        android:elevation="4dp"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        android:theme="@style/ButtonStyle" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,16 +90,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txtTextDont"
             android:layout_marginEnd="6dp"
-            android:textColor="@color/colorWhite"/>
+            android:text="@string/txtTextDont"
+            android:textColor="@color/colorWhite" />
 
         <TextView
+            android:id="@+id/txtSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/txtTextSignUp"
-            android:textColor="@color/colorYellow"
-            android:id="@+id/txtSignUp"/>
+            android:textColor="@color/colorYellow" />
 
     </LinearLayout>
 

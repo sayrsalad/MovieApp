@@ -1,7 +1,6 @@
 package com.example.movieapp.Fragments;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +8,11 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -24,8 +20,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +36,8 @@ import com.example.movieapp.AddMovieActivity;
 import com.example.movieapp.Constant;
 import com.example.movieapp.HomeActivity;
 import com.example.movieapp.Models.Actor;
+import com.example.movieapp.Models.Certificate;
+import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
 import com.example.movieapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,20 +46,18 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.zip.Inflater;
 
 public class MovieFragment extends Fragment implements MoviesAdapter.OnItemListener{
     private static final String TAG = "MovieFragment";
     private View view;
-    private RecyclerView recyclerView, movieCasts;
-    private ArrayList<Movie> arrayList;
+    public static RecyclerView recyclerView, movieCasts;
+    public static ArrayList<Movie> arrayList;
 
-    private SwipeRefreshLayout refreshLayout;
+    public static SwipeRefreshLayout refreshLayout;
     private MoviesAdapter moviesAdapter;
     private CastsAdapter castsAdapter;
     private Toolbar toolbar;
@@ -130,8 +124,20 @@ public class MovieFragment extends Fragment implements MoviesAdapter.OnItemListe
                     JSONArray array = new JSONArray(object.getString("movies"));
                     for ( int i = 0; i < array.length(); i++) {
                         JSONObject movieObject = array.getJSONObject(i);
+                        JSONObject genreObject = movieObject.getJSONObject("genre");
+                        JSONObject certificateObject = movieObject.getJSONObject("certificate");
+
+                        Genre genre = new Genre();
+                        genre.setGenre_ID(genreObject.getInt("genre_ID"));
+                        genre.setGenre_name(genreObject.getString("genre_name"));
+
+                        Certificate certificate = new Certificate();
+                        certificate.setCertificate_ID(certificateObject.getInt("certificate_ID"));
+                        certificate.setCertificate_name(certificateObject.getString("certificate_name"));
 
                         Movie movie = new Movie();
+                        movie.setGenre(genre);
+                        movie.setCertificate(certificate);
                         movie.setMovie_ID(movieObject.getInt("movie_ID"));
                         movie.setMovie_title(movieObject.getString("movie_title"));
                         movie.setMovie_story(movieObject.getString("movie_story"));
@@ -213,4 +219,6 @@ public class MovieFragment extends Fragment implements MoviesAdapter.OnItemListe
 
 
     }
+
+
 }

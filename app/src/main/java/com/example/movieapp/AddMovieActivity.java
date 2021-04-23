@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -26,6 +29,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.movieapp.Adapters.MoviesAdapter;
+import com.example.movieapp.Fragments.MovieFragment;
+import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Certificate;
 import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
@@ -36,16 +41,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PublicKey;
-import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class AddMovieActivity extends AppCompatActivity {
@@ -63,6 +63,7 @@ public class AddMovieActivity extends AppCompatActivity {
     private Genre genre;
     private ArrayList<Certificate> certificateArrayList;
     private Certificate certificate;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,9 @@ public class AddMovieActivity extends AppCompatActivity {
         txtLayoutCertificate = findViewById(R.id.txtLayoutCertificate);
 
         imgAddMoviePoster.setImageURI(getIntent().getData());
+
+        dialog = new ProgressDialog(this);
+        dialog.setCancelable(false);
 
         getGenres();
         getCertificates();
@@ -128,12 +132,16 @@ public class AddMovieActivity extends AppCompatActivity {
 
         txtGenre.setOnItemClickListener((parent, view, position, rowId) -> {
             Genre g = genreArrayList.get(position);
-
+            txtGenre.setId(g.getGenre_ID());
         });
 
         txtCertificate.setOnItemClickListener((parent, view, position, rowId) -> {
             Certificate c = certificateArrayList.get(position);
+            txtCertificate.setId(c.getCertificate_ID());
+        });
 
+        btnAddMovie.setOnClickListener( v -> {
+            post();
         });
 
     }
@@ -209,8 +217,8 @@ public class AddMovieActivity extends AppCompatActivity {
 
                         Certificate certificate = new Certificate();
 
-                        certificate.setGenre_ID(certificateObject.getInt("certificate_ID"));
-                        certificate.setGenre_name(certificateObject.getString("certificate_name"));
+                        certificate.setCertificate_ID(certificateObject.getInt("certificate_ID"));
+                        certificate.setCertificate_name(certificateObject.getString("certificate_name"));
 
                         arrayList.add(certificateObject.getString("certificate_name"));
 
@@ -262,12 +270,126 @@ public class AddMovieActivity extends AppCompatActivity {
             Uri imgUri = data.getData();
             imgAddMoviePoster.setImageURI(imgUri);
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), getIntent().getData());
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    private void post() {
+
+        dialog.setMessage("Adding Movie");
+        dialog.show();
+
+
+        StringRequest request = new StringRequest(Request.Method.POST, Constant.ADD_MOVIE, response -> {
+
+            try {
+                JSONObject object = new JSONObject(response);
+
+                if (object.getBoolean("success")) {
+                    MovieFragment.refreshLayout.setRefreshing(true);
+                    JSONObject movieObject = object.getJSONObject("movie");
+                    JSONObject genreObject = movieObject.getJSONObject("genre");
+                    JSONObject certificateObject = movieObject.getJSONObject("certificate");
+
+                    Genre genre = new Genre();
+                    genre.setGenre_ID(genreObject.getInt("genre_ID"));
+                    genre.setGenre_name(genreObject.getString("genre_name"));
+
+                    Certificate certificate = new Certificate();
+                    certificate.setCertificate_ID(certificateObject.getInt("certificate_ID"));
+                    certificate.setCertificate_name(certificateObject.getString("certificate_name"));
+
+                    Movie movie = new Movie();
+                    movie.setGenre(genre);
+                    movie.setCertificate(certificate);
+                    movie.setMovie_ID(movieObject.getInt("movie_ID"));
+                    movie.setMovie_title(movieObject.getString("movie_title"));
+                    movie.setMovie_story(movieObject.getString("movie_story"));
+                    movie.setMovie_release_date(movieObject.getString("movie_release_date"));
+                    movie.setMovie_film_duration(movieObject.getInt("movie_film_duration"));
+                    movie.setMovie_additional_info(movieObject.getString("movie_additional_info"));
+                    movie.setMovie_poster(movieObject.getString("movie_poster"));
+
+                    JSONArray actorArray = movieObject.getJSONArray("actor");
+                    ArrayList<Actor> actorArrayList = new ArrayList<Actor>();
+
+                    for ( int a = 0; a < actorArray.length(); a++) {
+                        JSONObject actorObject = actorArray.getJSONObject(a);
+
+                        Actor actor = new Actor();
+                        actor.setActor_ID(actorObject.getInt("actor_ID"));
+                        actor.setActor_img(actorObject.getString("actor_img"));
+                        actor.setActor_fname(actorObject.getString("actor_fname"));
+                        actor.setActor_lname(actorObject.getString("actor_lname"));
+                        actor.setActor_notes(actorObject.getString("actor_notes"));
+                        actorArrayList.add(actor);
+                    }
+
+                    movie.setActor(actorArrayList);
+
+                    MovieFragment.arrayList.add(0, movie);
+
+                    MovieFragment.recyclerView.getAdapter().notifyItemInserted(0);
+                    MovieFragment.recyclerView.getAdapter().notifyDataSetChanged();
+                    Toast.makeText(this, "Movie Added", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                    MovieFragment.refreshLayout.setRefreshing(false);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            dialog.dismiss();
+
+        }, error -> {
+            error.printStackTrace();
+            error.getMessage();
+            Toast.makeText(this, "There was a problem adding the movie", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String token = sharedPreferences.getString("access_token", "");
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Authorization", "Bearer" + token);
+                return map;
+            }
+
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("movie_title", txtTitle.getText().toString().trim());
+                map.put("movie_story", txtStory.getText().toString().trim());
+                map.put("movie_release_date", txtReleaseDate.getText().toString().trim());
+                map.put("movie_film_duration", txtFilmDuration.getText().toString().trim());
+                map.put("movie_additional_info", txtAdditionalInfo.getText().toString().trim());
+                map.put("genre_ID", String.valueOf(txtGenre.getId()));
+                map.put("certificate_ID", String.valueOf(txtCertificate.getId()));
+                map.put("movie_poster", bitmapToString(bitmap));
+                map.put("movie_status", "active");
+
+                return map;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(AddMovieActivity.this );
+        queue.add(request);
+
+    }
+
+    private String bitmapToString(Bitmap bitmap) {
+        if (bitmap!=null){
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+            byte [] array = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(array, Base64.DEFAULT);
+        }
+
+        return "";
+    }
 
 }

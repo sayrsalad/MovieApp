@@ -10,11 +10,13 @@ public class Constant {
     public static final String USER_PROFILE = HOME + "/auth/user_profile";
     public static final String SAVE_USER_INFO = HOME + "/save_user_info ";
 
-    public static final String MOVIES = HOME + "/movie ";
-    public static final String ACTORS = HOME + "/actor ";
-    public static final String PRODUCERS = HOME + "/producer ";
+    public static final String MOVIES = HOME + "/movie";
+    public static final String ACTORS = HOME + "/actor";
+    public static final String PRODUCERS = HOME + "/producer";
 
     public static final String GENRES = HOME + "/genre ";
-    public static final String CERTIFICATES = HOME + "/certificate ";
+    public static final String CERTIFICATES = HOME + "/certificate";
+
+    public static final String ADD_MOVIE = MOVIES;
 
 }
