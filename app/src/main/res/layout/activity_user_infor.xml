@@ -4,73 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="50dp"
-    android:orientation="vertical"
-    tools:context=".UserInfoActivity"
+    android:background="@color/colorBackground"
     android:fitsSystemWindows="true"
-    android:theme="@style/TextViewStyle"
-    android:background="@color/colorBackground">
-    
+    android:orientation="vertical"
+    android:padding="50dp"
+    tools:context=".UserInfoActivity">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
         android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
         android:text="User Info"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgUserInfo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
-        android:src="@color/colorLightGrey"
-        android:id="@+id/imgUserInfo"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:src="@color/colorLightGrey" />
 
     <TextView
+        android:id="@+id/txtSelectPhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
         android:text="Select Photo"
         android:textColor="@color/colorYellow"
-        android:gravity="center_horizontal"
-        android:id="@+id/txtSelectPhoto"
-        android:textSize="16sp"
-        android:layout_marginBottom="20dp"
-        android:textFontWeight="700"/>
+        android:textFontWeight="700"
+        android:textSize="16sp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
         android:id="@+id/txtLayoutNameUserInfo"
-        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorTextColor="@color/colorRedError"
+        android:layout_marginBottom="10dp"
         android:textColorHint="@color/colorWhite"
-        android:theme="@style/InputStyle">
+        android:theme="@style/InputStyle"
+        app:errorTextColor="@color/colorRedError">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtNameUserInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtNameUserInfo"
+            android:background="@android:color/transparent"
             android:hint="Name"
             android:inputType="textEmailAddress"
+            android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:theme="@style/InputStyle"
-            android:textColor="@color/colorWhite"/>
+            android:theme="@style/InputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:text="Continue"
-        android:id="@+id/btnContinue"
-        android:background="@drawable/btn_round"
-        android:textColor="@color/colorWhite"
         android:layout_marginBottom="70dp"
-        android:textSize="17sp"
+        android:background="@drawable/btn_round"
+        android:text="Continue"
         android:textAllCaps="false"
-        android:theme="@style/ButtonStyle"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        android:theme="@style/ButtonStyle" />
 
 </LinearLayout>

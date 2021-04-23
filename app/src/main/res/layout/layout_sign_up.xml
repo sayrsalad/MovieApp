@@ -1,130 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:paddingLeft="50dp"
-    android:paddingRight="50dp"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/colorBackground"
-    android:theme="@style/TextViewStyle">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="32sp"
-        android:fontFamily="@font/montserrat_regular"
-        android:textColor="@color/colorWhite"
-        android:gravity="center_horizontal"
         android:layout_marginTop="90dp"
         android:layout_marginBottom="50dp"
-        android:textFontWeight="900"/>
+        android:fontFamily="@font/montserrat_regular"
+
+        android:gravity="center_horizontal"
+        android:text="MOVIE APP"
+        android:textColor="@color/colorYellow"
+        android:textFontWeight="900"
+        android:textSize="32sp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
         android:id="@+id/txtLayoutNameSignUp"
-        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorTextColor="@color/colorRedError"
+        android:layout_marginBottom="6dp"
         android:textColorHint="@color/colorWhite"
-        android:theme="@style/InputStyle">
+        android:theme="@style/InputStyle"
+        app:errorTextColor="@color/colorRedError">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtNameSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtNameSignUp"
+            android:background="@android:color/transparent"
             android:hint="@string/nameHint"
             android:inputType="textEmailAddress"
+            android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:theme="@style/InputStyle"
-            android:textColor="@color/colorWhite"/>
+            android:theme="@style/InputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
         android:id="@+id/txtLayoutEmailSignUp"
-        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorTextColor="@color/colorRedError"
+        android:layout_marginBottom="6dp"
         android:textColorHint="@color/colorWhite"
-        android:theme="@style/InputStyle">
+        android:theme="@style/InputStyle"
+        app:errorTextColor="@color/colorRedError">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtEmailSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtEmailSignUp"
+            android:background="@android:color/transparent"
             android:hint="@string/emailHint"
             android:inputType="textEmailAddress"
+            android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:theme="@style/InputStyle"
-            android:textColor="@color/colorWhite"/>
+            android:theme="@style/InputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
         android:id="@+id/txtLayoutPasswordSignUp"
-        android:layout_marginBottom="6dp"
-        app:passwordToggleEnabled="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorTextColor="@color/colorRedError"
+        android:layout_marginBottom="6dp"
         android:textColorHint="@color/colorWhite"
         android:theme="@style/InputStyle"
+        app:errorTextColor="@color/colorRedError"
+        app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/colorWhite">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPasswordSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtPasswordSignUp"
+            android:background="@android:color/transparent"
             android:hint="@string/passwordHint"
             android:inputType="textPassword"
+            android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:theme="@style/InputStyle"
-            android:textColor="@color/colorWhite"/>
+            android:theme="@style/InputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
         android:id="@+id/txtLayoutConfirmSignUp"
-        android:layout_marginBottom="30dp"
-        app:passwordToggleEnabled="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorTextColor="@color/colorRedError"
+        android:layout_marginBottom="30dp"
         android:textColorHint="@color/colorWhite"
         android:theme="@style/InputStyle"
+        app:errorTextColor="@color/colorRedError"
+        app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/colorWhite">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtConfirmSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtConfirmSignUp"
+            android:background="@android:color/transparent"
             android:hint="@string/confirmHint"
             android:inputType="textPassword"
+            android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:background="@android:color/transparent"
-            android:theme="@style/InputStyle"
-            android:textColor="@color/colorWhite"/>
+            android:theme="@style/InputStyle" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:text="@string/btnTextSignUp"
-        android:id="@+id/btnSignUp"
-        android:background="@drawable/btn_round"
-        android:textColor="@color/colorWhite"
         android:layout_marginBottom="70dp"
-        android:textSize="17sp"
+        android:background="@drawable/btn_round"
+        android:text="@string/btnTextSignUp"
         android:textAllCaps="false"
-        android:theme="@style/ButtonStyle"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="17sp"
+        android:theme="@style/ButtonStyle" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -135,16 +135,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txtTextAlready"
             android:layout_marginEnd="6dp"
-            android:textColor="@color/colorWhite"/>
+            android:text="@string/txtTextAlready"
+            android:textColor="@color/colorWhite" />
 
         <TextView
+            android:id="@+id/txtSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/txtTextSignIn"
-            android:textColor="@color/colorYellow"
-            android:id="@+id/txtSignIn"/>
+            android:textColor="@color/colorYellow" />
 
     </LinearLayout>
 

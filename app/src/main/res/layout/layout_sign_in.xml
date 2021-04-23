@@ -7,20 +7,19 @@
     android:paddingRight="50dp"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/colorBackground"
-    android:theme="@style/TextViewStyle">
+    android:background="@color/colorBackground">
     
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:text="MOVIE APP"
         android:textSize="32sp"
-        android:font="@font/montserrat_regular"
-        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/montserrat_regular"
+        android:textFontWeight="900"
+        android:textColor="@color/colorYellow"
         android:gravity="center_horizontal"
         android:layout_marginTop="90dp"
-        android:layout_marginBottom="80dp"
-        android:textFontWeight="900"/>
+        android:layout_marginBottom="80dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLayoutEmailSignIn"
@@ -28,7 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         android:textColorHint="@color/colorWhite"
-        android:theme="@style/InputStyle"
         app:errorTextColor="@color/colorRedError">
 
         <com.google.android.material.textfield.TextInputEditText

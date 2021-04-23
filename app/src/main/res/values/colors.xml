@@ -17,4 +17,8 @@
     <color name="colorRedError">#F84240</color>
     <color name="colorBackground">#141414</color>
     <color name="transparent">@android:color/transparent</color>
+    <color name="mtrl_filled_background_color">#fff</color>
+    <color name="mtrl_filled_stroke_color">#fff</color>
+    <color name="mtrl_filled_icon_tint">#fff</color>
+    <color name="mtrl_indicator_text_color">#fff</color>
 </resources>

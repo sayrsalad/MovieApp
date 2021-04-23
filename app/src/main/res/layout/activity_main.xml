@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:fitsSystemWindows="true"
     android:background="@color/colorBackground"
-    android:theme="@style/TextViewStyle">
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Movie App"
-        android:textSize="32sp"
-        android:gravity="center_horizontal"
         android:layout_centerInParent="true"
-        android:textColor="@color/white"
-        android:textFontWeight="900"/>
+        android:fontFamily="@font/montserrat_regular"
+        android:gravity="center_horizontal"
+        android:text="MOVIE APP"
+        android:textColor="@color/colorYellow"
+        android:textFontWeight="900"
+        android:textSize="32sp" />
 
 </RelativeLayout>

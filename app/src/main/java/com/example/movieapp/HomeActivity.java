@@ -8,12 +8,14 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -21,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ImageView navUserPhoto;
     private NavigationView navigationView;
     private View headerView;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,35 +156,33 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 break;
             case R.id.nav_logout:
-                AlertDialog alertDialog;
-                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogCustom);
-                TextView title = new TextView(this);
-                title.setTextColor(ContextCompat.getColor(this, android.R.color.white));
-                title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                title.setTypeface(Typeface.DEFAULT_BOLD);
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(0, -100, 0, 0);
-                title.setPadding(0,-10,0,0);
-                title.setLayoutParams(lp);
-                title.setText("Log out?");
-                title.setGravity(Gravity.CENTER);
-                builder.setCustomTitle(title);
-                builder.setMessage("Are you sure you want to logout?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                dialog = new Dialog(HomeActivity.this);
+                dialog.setContentView(R.layout.custom_alert_dialog);
+
+                dialog.setCancelable(false);
+
+                dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                Button btnYes = dialog.findViewById(R.id.btnYes);
+                Button btnNo = dialog.findViewById(R.id.btnNo);
+
+                btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         logout();
                     }
                 });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
+                btnNo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
                     }
                 });
-                alertDialog = builder.create();
-                alertDialog.show();
+
+                dialog.show();
 
         }
 
