@@ -3,18 +3,15 @@ package com.example.movieapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -28,7 +25,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.movieapp.Adapters.MoviesAdapter;
 import com.example.movieapp.Fragments.MovieFragment;
 import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Certificate;
@@ -36,6 +32,7 @@ import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,10 +45,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddMovieActivity extends AppCompatActivity {
+public class UpdateMovieActivity extends AppCompatActivity {
+
+    private int position = 0, movie_ID = 0;
     private static final int GALLERY_CHANGE_POST = 3;
-    private Button btnAddMovie;
-    private ImageView imgAddMoviePoster;
+    private Button btnUpdateMovie;
+    private ImageView imgUpdateMoviePoster;
     private TextInputLayout txtLayoutTitle, txtLayoutStory, txtLayoutReleaseDate, txtLayoutFilmDuration, txtLayoutAdditionalInfo, txtLayoutGenre, txtLayoutCertificate;
     private TextInputEditText txtTitle, txtStory, txtReleaseDate, txtFilmDuration, txtAdditionalInfo;
     private AutoCompleteTextView txtGenre, txtCertificate;
@@ -67,14 +66,14 @@ public class AddMovieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_movie);
+        setContentView(R.layout.activity_update_movie);
         init();
     }
 
     private void init() {
         sharedPreferences = getApplicationContext().getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        btnAddMovie = findViewById(R.id.btnAddMovie);
-        imgAddMoviePoster = findViewById(R.id.imgAddMoviePoster);
+        btnUpdateMovie = findViewById(R.id.btnUpdateMovie);
+        imgUpdateMoviePoster = findViewById(R.id.imgUpdateMoviePoster);
 
         txtTitle = findViewById(R.id.txtTitle);
         txtStory = findViewById(R.id.txtStory);
@@ -92,7 +91,7 @@ public class AddMovieActivity extends AppCompatActivity {
         txtLayoutGenre = findViewById(R.id.txtLayoutGenre);
         txtLayoutCertificate = findViewById(R.id.txtLayoutCertificate);
 
-        imgAddMoviePoster.setImageURI(getIntent().getData());
+        Picasso.get().load(Constant.URL+"storage/posters/" + getIntent().getStringExtra("movie_poster")).resize(500, 0).into(imgUpdateMoviePoster);
 
         dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
@@ -100,11 +99,19 @@ public class AddMovieActivity extends AppCompatActivity {
         getGenres();
         getCertificates();
 
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), getIntent().getData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        position = getIntent().getIntExtra("position", 0);
+        movie_ID = getIntent().getIntExtra("movie_ID", 0);
+
+        txtTitle.setText(getIntent().getStringExtra("movie_title"));
+        txtStory.setText(getIntent().getStringExtra("movie_story"));
+        txtReleaseDate.setText(getIntent().getStringExtra("movie_release_date"));
+        txtFilmDuration.setText(String.valueOf(getIntent().getIntExtra("movie_film_duration", 0)));
+        txtAdditionalInfo.setText(getIntent().getStringExtra("movie_additional_info"));
+        txtGenre.setText(getIntent().getStringExtra("genre_name"));
+        txtCertificate.setText(getIntent().getStringExtra("certificate_name"));
+
+        txtGenre.setId(getIntent().getIntExtra("genre_ID", 0));
+        txtCertificate.setId(getIntent().getIntExtra("certificate_ID", 0));
 
         txtReleaseDate.setOnClickListener(v -> {
             Calendar cal = Calendar.getInstance();
@@ -113,7 +120,7 @@ public class AddMovieActivity extends AppCompatActivity {
             int day = cal.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog dialog = new DatePickerDialog(
-                    AddMovieActivity.this,
+                    UpdateMovieActivity.this,
                     R.style.MyDialogTheme,
                     dateSetListener,
                     year, month, day);
@@ -139,10 +146,9 @@ public class AddMovieActivity extends AppCompatActivity {
             txtCertificate.setId(c.getCertificate_ID());
         });
 
-        btnAddMovie.setOnClickListener( v -> {
-            add();
+        btnUpdateMovie.setOnClickListener(v -> {
+            updateMovie();
         });
-
     }
 
     private void getGenres() {
@@ -168,7 +174,7 @@ public class AddMovieActivity extends AppCompatActivity {
 
                         arrayList.add(genreObject.getString("genre_name"));
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                            this,
+                                this,
                                 R.layout.custom_dropdown_item,
                                 R.id.text_view_list_item,
                                 arrayList
@@ -262,26 +268,11 @@ public class AddMovieActivity extends AppCompatActivity {
         startActivityForResult(i, GALLERY_CHANGE_POST);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_CHANGE_POST && resultCode == Activity.RESULT_OK) {
-            Uri imgUri = data.getData();
-            imgAddMoviePoster.setImageURI(imgUri);
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void add() {
-
-        dialog.setMessage("Adding Movie");
+    private void updateMovie() {
+        dialog.setMessage("Saving");
         dialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.POST, Constant.ADD_MOVIE, response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Constant.UPDATE_MOVIE+"/"+movie_ID, response -> {
 
             try {
                 JSONObject object = new JSONObject(response);
@@ -300,7 +291,7 @@ public class AddMovieActivity extends AppCompatActivity {
                     certificate.setCertificate_ID(certificateObject.getInt("certificate_ID"));
                     certificate.setCertificate_name(certificateObject.getString("certificate_name"));
 
-                    Movie movie = new Movie();
+                    Movie movie = MovieFragment.arrayList.get(position);
                     movie.setGenre(genre);
                     movie.setCertificate(certificate);
                     movie.setMovie_ID(movieObject.getInt("movie_ID"));
@@ -328,12 +319,14 @@ public class AddMovieActivity extends AppCompatActivity {
 
                     movie.setActor(actorArrayList);
 
-                    MovieFragment.arrayList.add(0, movie);
+                    MovieFragment.arrayList.set(position, movie);
 
                     MovieFragment.recyclerView.getAdapter().notifyItemInserted(0);
                     MovieFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "Movie Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Movie Updated", Toast.LENGTH_SHORT).show();
                     finish();
+
+
 
                     MovieFragment.refreshLayout.setRefreshing(false);
                 }
@@ -345,6 +338,7 @@ public class AddMovieActivity extends AppCompatActivity {
 
         }, error -> {
             error.printStackTrace();
+            error.getMessage();
             Toast.makeText(this, "There was a problem adding the movie", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         }){
@@ -360,6 +354,7 @@ public class AddMovieActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();
+                map.put("movie_ID", movie_ID+"");
                 map.put("movie_title", txtTitle.getText().toString().trim());
                 map.put("movie_story", txtStory.getText().toString().trim());
                 map.put("movie_release_date", txtReleaseDate.getText().toString().trim());
@@ -373,7 +368,7 @@ public class AddMovieActivity extends AppCompatActivity {
                 return map;
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(AddMovieActivity.this );
+        RequestQueue queue = Volley.newRequestQueue(UpdateMovieActivity.this );
         queue.add(request);
 
     }

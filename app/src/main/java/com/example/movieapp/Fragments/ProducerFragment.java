@@ -97,14 +97,17 @@ public class ProducerFragment extends Fragment implements ProducersAdapter.OnIte
                     for ( int i = 0; i < array.length(); i++) {
                         JSONObject producerObject = array.getJSONObject(i);
 
-                        Producer producer = new Producer();
-                        producer.setProducer_ID(producerObject.getInt("producer_ID"));
-                        producer.setProducer_name(producerObject.getString("producer_name"));
-                        producer.setProducer_email_address(producerObject.getString("producer_email_address"));
-                        producer.setProducer_website(producerObject.getString("producer_website"));
-                        producer.setProducer_status(producerObject.getString("producer_status"));
+                        if (producerObject.getString("deleted_at") != null) {
+                            Producer producer = new Producer();
+                            producer.setProducer_ID(producerObject.getInt("producer_ID"));
+                            producer.setProducer_name(producerObject.getString("producer_name"));
+                            producer.setProducer_email_address(producerObject.getString("producer_email_address"));
+                            producer.setProducer_website(producerObject.getString("producer_website"));
+                            producer.setProducer_status(producerObject.getString("producer_status"));
 
-                        arrayList.add(producer);
+                            arrayList.add(producer);
+                        }
+
                     }
 
                     producerAdapter = new ProducersAdapter(getContext(), arrayList, this);

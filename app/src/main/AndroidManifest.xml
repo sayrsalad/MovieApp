@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddProducerActivity"></activity>
+        <activity android:name=".UpdateMovieActivity"></activity>
+        <activity android:name=".AddProducerActivity" />
         <activity android:name=".AddActorActivity" />
         <activity android:name=".AddMovieActivity" />
         <activity

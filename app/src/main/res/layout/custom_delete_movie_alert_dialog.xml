@@ -15,7 +15,7 @@
         android:fontFamily="@font/notosanssc_regular"
         android:gravity="center_horizontal"
         android:includeFontPadding="false"
-        android:text="Log-out"
+        android:text="Delete Movie"
         android:textColor="@color/colorYellow"
         android:textFontWeight="900"
         android:textSize="20sp" />
@@ -28,7 +28,7 @@
         android:fontFamily="@font/notosanssc_regular"
         android:gravity="center_horizontal"
         android:includeFontPadding="false"
-        android:text="Are you sure you want leave?"
+        android:text="Are you sure you want to delete this movie?"
         android:textColor="@color/colorWhite"
         android:textFontWeight="900" />
 

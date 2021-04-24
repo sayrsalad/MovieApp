@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,6 +146,11 @@ public class MovieFragment extends Fragment implements MoviesAdapter.OnItemListe
                         movie.setMovie_film_duration(movieObject.getInt("movie_film_duration"));
                         movie.setMovie_additional_info(movieObject.getString("movie_additional_info"));
                         movie.setMovie_poster(movieObject.getString("movie_poster"));
+
+                        movie.setGenre_ID(genreObject.getInt("genre_ID"));
+                        movie.setGenre_name(genreObject.getString("genre_name"));
+                        movie.setCertificate_ID(certificateObject.getInt("certificate_ID"));
+                        movie.setCertificate_name(certificateObject.getString("certificate_name"));
 
                         JSONArray actorArray = movieObject.getJSONArray("actor");
                         ArrayList<Actor> actorArrayList = new ArrayList<Actor>();

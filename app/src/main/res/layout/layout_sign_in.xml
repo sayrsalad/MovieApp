@@ -39,7 +39,7 @@
             android:inputType="textEmailAddress"
             android:textColor="@color/colorWhite"
             android:textSize="15sp"
-            android:theme="@style/InputStyle" />
+            android:theme="@style/InputStyle"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

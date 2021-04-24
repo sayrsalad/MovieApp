@@ -3,10 +3,34 @@ package com.example.movieapp.Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Movie implements Serializable {
+public class Movie  {
 
     private int movie_ID, genre_ID, certificate_ID, movie_film_duration;
-    private String movie_title, movie_story, movie_release_date, movie_additional_info, movie_poster, movie_status;
+    private String movie_title;
+    private String movie_story;
+    private String movie_release_date;
+    private String movie_additional_info;
+    private String movie_poster;
+    private String movie_status;
+    private String genre_name;
+
+    public String getGenre_name() {
+        return genre_name;
+    }
+
+    public void setGenre_name(String genre_name) {
+        this.genre_name = genre_name;
+    }
+
+    public String getCertificate_name() {
+        return certificate_name;
+    }
+
+    public void setCertificate_name(String certificate_name) {
+        this.certificate_name = certificate_name;
+    }
+
+    private String certificate_name;
     private Actor actor;
     private ArrayList<Actor> arrayList;
 

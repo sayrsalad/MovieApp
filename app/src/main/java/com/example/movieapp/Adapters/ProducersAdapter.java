@@ -6,10 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.movieapp.Models.Producer;
 import com.example.movieapp.R;
 import com.squareup.picasso.Picasso;
@@ -21,6 +24,7 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
     private Context context;
     private ArrayList<Producer> list;
     private OnItemListener onItemListener;
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
     public ProducersAdapter(Context context, ArrayList<Producer> list, OnItemListener onItemListener) {
         this.context = context;
@@ -41,6 +45,13 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
         holder.txtProducerName.setText(producer.getProducer_name());
         holder.txtProducerEmail.setText(producer.getProducer_email_address());
         holder.txtProducerWebsite.setText(producer.getProducer_website());
+        holder.btnEditProducer.setId(producer.getProducer_ID());
+        holder.btnDeleteProducer.setId(producer.getProducer_ID());
+
+        viewBinderHelper.setOpenOnlyOne(true);
+        viewBinderHelper.bind(holder.swipeRevealLayout, String.valueOf(list.get(position).getProducer_ID()));
+        viewBinderHelper.closeLayout(String.valueOf(list.get(position).getProducer_ID()));
+
     }
 
     @Override
@@ -51,7 +62,9 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
     class ProducerHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView txtProducerName, txtProducerEmail, txtProducerWebsite;
+        private ImageView btnEditProducer, btnDeleteProducer;
         OnItemListener onItemListener;
+        private SwipeRevealLayout swipeRevealLayout;
 
         public ProducerHolder(@NonNull View itemView, OnItemListener onItemListener) {
             super(itemView);
@@ -59,11 +72,24 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
             txtProducerEmail = itemView.findViewById(R.id.txtProducerEmail);
             txtProducerWebsite = itemView.findViewById(R.id.txtProducerWebsite);
 
+            btnEditProducer = itemView.findViewById(R.id.btnEditProducer);
+            btnDeleteProducer = itemView.findViewById(R.id.btnDeleteProducer);
+
+            swipeRevealLayout = itemView.findViewById(R.id.swipeProducerLayout);
+
             this.onItemListener = onItemListener;
 
             itemView.setOnClickListener(this);
 
             itemView.setClickable(true);
+
+            btnEditProducer.setOnClickListener( v -> {
+                Toast.makeText(context, "Edit" + String.valueOf(btnEditProducer.getId()), Toast.LENGTH_SHORT).show();
+            });
+
+            btnDeleteProducer.setOnClickListener( v -> {
+                Toast.makeText(context, "Delete" + String.valueOf(btnDeleteProducer.getId()), Toast.LENGTH_SHORT).show();
+            });
         }
 
         @Override

@@ -166,6 +166,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 Button btnYes = dialog.findViewById(R.id.btnYes);
                 Button btnNo = dialog.findViewById(R.id.btnNo);
 
+                dialog.show();
+
                 btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -180,7 +182,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     }
                 });
 
-                dialog.show();
 
         }
 
@@ -190,6 +191,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
+        dialog.dismiss();
         StringRequest request = new StringRequest( Request.Method.POST, Constant.LOGOUT, response -> {
 
             try {

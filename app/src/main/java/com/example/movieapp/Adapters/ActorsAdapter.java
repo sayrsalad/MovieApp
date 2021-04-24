@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.example.movieapp.Constant;
 import com.example.movieapp.Models.Actor;
 import com.example.movieapp.R;
@@ -52,6 +53,7 @@ public class ActorsAdapter extends RecyclerView.Adapter<ActorsAdapter.ActorHolde
 
         private TextView txtActorName, txtActorNotes;
         private ImageView imgActorProfile;
+        private SwipeRevealLayout swipeRevealLayout;
 
         public ActorHolder(@NonNull View itemView) {
             super(itemView);

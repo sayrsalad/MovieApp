@@ -1,12 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chauthai.swipereveallayout.SwipeRevealLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeMovieLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_marginTop="10dp"
-    android:fitsSystemWindows="true">
+    android:clickable="true"
+    app:dragEdge="right"
+    app:mode="same_level">
 
+    <!--Swipe Layout-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btnMoreMovie"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_info_24"
+            android:background="@color/colorBackground"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:padding="35dp"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/btnEditMovie"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:background="@color/colorDarkYellow"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:padding="35dp"
+            android:clickable="true"/>
+
+        <ImageView
+            android:id="@+id/btnDeleteMovie"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:background="@color/colorRedError"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:padding="35dp"/>
+
+
+    </LinearLayout>
+
+    <!--Main Layout-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,7 +86,7 @@
                 android:id="@+id/txtActorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title"
+                android:text="Name"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp"/>
 
@@ -50,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtMovieTitle"
-                android:text="Desc"
+                android:text="Bio"
                 android:textColor="@color/colorWhite"
                 android:justificationMode="inter_word"/>
 
@@ -59,4 +104,5 @@
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

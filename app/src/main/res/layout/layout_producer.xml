@@ -5,20 +5,41 @@
     android:id="@+id/swipeProducerLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
     android:layout_marginTop="10dp"
     app:dragEdge="right"
     app:mode="same_level">
 
     <!--Swipe Layout-->
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="match_parent"/>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="match_parent"/>
+        <ImageView
+            android:id="@+id/btnEditProducer"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:background="@color/colorDarkYellow"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:padding="35dp"/>
+
+        <ImageView
+            android:id="@+id/btnDeleteProducer"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_delete_24"
+            android:background="@color/colorRedError"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:padding="35dp"/>
+
+
+    </LinearLayout>
+
+
 
     <!--Main Layout-->
     <LinearLayout
