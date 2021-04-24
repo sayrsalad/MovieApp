@@ -58,7 +58,6 @@ public class AddMovieActivity extends AppCompatActivity {
     private Bitmap bitmap = null;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private SharedPreferences sharedPreferences;
-    private int genre_ID;
     private ArrayList<Genre> genreArrayList;
     private Genre genre;
     private ArrayList<Certificate> certificateArrayList;
@@ -141,7 +140,7 @@ public class AddMovieActivity extends AppCompatActivity {
         });
 
         btnAddMovie.setOnClickListener( v -> {
-            post();
+            add();
         });
 
     }
@@ -277,7 +276,7 @@ public class AddMovieActivity extends AppCompatActivity {
         }
     }
 
-    private void post() {
+    private void add() {
 
         dialog.setMessage("Adding Movie");
         dialog.show();

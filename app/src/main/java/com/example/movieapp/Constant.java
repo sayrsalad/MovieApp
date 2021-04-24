@@ -18,5 +18,8 @@ public class Constant {
     public static final String CERTIFICATES = HOME + "/certificate";
 
     public static final String ADD_MOVIE = MOVIES;
+    public static final String ADD_ACTOR = ACTORS;
+    public static final String ADD_PRODUCER = PRODUCERS;
+
 
 }

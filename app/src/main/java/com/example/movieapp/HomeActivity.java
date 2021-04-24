@@ -160,8 +160,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 dialog = new Dialog(HomeActivity.this);
                 dialog.setContentView(R.layout.custom_alert_dialog);
 
-                dialog.setCancelable(false);
-
                 dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 

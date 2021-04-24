@@ -20,23 +20,24 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
 
     private Context context;
     private ArrayList<Producer> list;
+    private OnItemListener onItemListener;
 
-    public ProducersAdapter(Context context, ArrayList<Producer> list) {
+    public ProducersAdapter(Context context, ArrayList<Producer> list, OnItemListener onItemListener) {
         this.context = context;
         this.list = list;
+        this.onItemListener = onItemListener;
     }
 
     @NonNull
     @Override
     public ProducersAdapter.ProducerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_producer, parent, false);
-        return new ProducersAdapter.ProducerHolder(view);
+        return new ProducersAdapter.ProducerHolder(view, onItemListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProducersAdapter.ProducerHolder holder, int position) {
         Producer producer = list.get(position);
-//        Picasso.get().load(Constant.URL+"storage/actor_profiles/" + actor.getActor_img()).resize(200, 0).into(holder.imgActorProfile);
         holder.txtProducerName.setText(producer.getProducer_name());
         holder.txtProducerEmail.setText(producer.getProducer_email_address());
         holder.txtProducerWebsite.setText(producer.getProducer_website());
@@ -47,16 +48,32 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
         return list.size();
     }
 
-    class ProducerHolder extends RecyclerView.ViewHolder {
+    class ProducerHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView txtProducerName, txtProducerEmail, txtProducerWebsite;
+        OnItemListener onItemListener;
 
-        public ProducerHolder(@NonNull View itemView) {
+        public ProducerHolder(@NonNull View itemView, OnItemListener onItemListener) {
             super(itemView);
             txtProducerName = itemView.findViewById(R.id.txtProducerName);
             txtProducerEmail = itemView.findViewById(R.id.txtProducerEmail);
             txtProducerWebsite = itemView.findViewById(R.id.txtProducerWebsite);
+
+            this.onItemListener = onItemListener;
+
+            itemView.setOnClickListener(this);
+
+            itemView.setClickable(true);
         }
+
+        @Override
+        public void onClick(View v) {
+            onItemListener.onItemClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnItemListener {
+        void onItemClick(int position);
     }
 
 }

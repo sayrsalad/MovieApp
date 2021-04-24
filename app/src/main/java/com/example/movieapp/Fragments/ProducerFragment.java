@@ -1,8 +1,10 @@
 package com.example.movieapp.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.movieapp.Adapters.ActorsAdapter;
 import com.example.movieapp.Adapters.ProducersAdapter;
+import com.example.movieapp.AddProducerActivity;
+import com.example.movieapp.AuthActivity;
 import com.example.movieapp.Constant;
 import com.example.movieapp.HomeActivity;
 import com.example.movieapp.Models.Actor;
@@ -39,11 +43,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProducerFragment extends Fragment {
+public class ProducerFragment extends Fragment implements ProducersAdapter.OnItemListener {
     private View view;
-    private RecyclerView recyclerView;
-    private ArrayList<Producer> arrayList;
-    private SwipeRefreshLayout refreshLayout;
+    public static RecyclerView recyclerView;
+    public static ArrayList<Producer> arrayList;
+    public static SwipeRefreshLayout refreshLayout;
     private ProducersAdapter producerAdapter;
     private Toolbar toolbar;
     private SharedPreferences sharedPreferences;
@@ -76,7 +80,7 @@ public class ProducerFragment extends Fragment {
         });
 
         btnAddProducer.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Add Producer Fragment", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(((HomeActivity)getContext()), AddProducerActivity.class));
         });
     }
 
@@ -103,7 +107,7 @@ public class ProducerFragment extends Fragment {
                         arrayList.add(producer);
                     }
 
-                    producerAdapter = new ProducersAdapter(getContext(), arrayList);
+                    producerAdapter = new ProducersAdapter(getContext(), arrayList, this);
                     recyclerView.setAdapter(producerAdapter);
                 }
             } catch (JSONException e) {
@@ -126,5 +130,10 @@ public class ProducerFragment extends Fragment {
         };
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Log.d("producer", arrayList.get(position).getProducer_name());
     }
 }
