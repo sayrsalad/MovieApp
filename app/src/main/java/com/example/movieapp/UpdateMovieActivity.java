@@ -3,12 +3,14 @@ package com.example.movieapp;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -91,7 +93,11 @@ public class UpdateMovieActivity extends AppCompatActivity {
         txtLayoutGenre = findViewById(R.id.txtLayoutGenre);
         txtLayoutCertificate = findViewById(R.id.txtLayoutCertificate);
 
-        Picasso.get().load(Constant.URL+"storage/posters/" + getIntent().getStringExtra("movie_poster")).resize(500, 0).into(imgUpdateMoviePoster);
+        if (getIntent().getBooleanExtra("fromGallery", false)) {
+            imgUpdateMoviePoster.setImageURI(getIntent().getData());
+        } else {
+            Picasso.get().load(Constant.URL+"storage/posters/" + getIntent().getStringExtra("movie_poster")).resize(500, 0).into(imgUpdateMoviePoster);
+        }
 
         dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
@@ -265,6 +271,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
     public void changeMoviePoster(View view) {
         Intent i = new Intent(Intent.ACTION_PICK);
         i.setType("image/*");
+        i.putExtra("fromGallery", true);
         startActivityForResult(i, GALLERY_CHANGE_POST);
     }
 
@@ -382,6 +389,20 @@ public class UpdateMovieActivity extends AppCompatActivity {
         }
 
         return "";
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_CHANGE_POST && resultCode == Activity.RESULT_OK) {
+            Uri imgUri = data.getData();
+            imgUpdateMoviePoster.setImageURI(imgUri);
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

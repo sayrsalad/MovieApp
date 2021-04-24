@@ -1,6 +1,7 @@
 package com.example.movieapp.Adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.movieapp.Constant;
 import com.example.movieapp.Models.Actor;
 import com.example.movieapp.R;
@@ -23,10 +25,13 @@ public class ActorsAdapter extends RecyclerView.Adapter<ActorsAdapter.ActorHolde
 
     private Context context;
     private ArrayList<Actor> list;
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+    private SharedPreferences sharedPreferences;
 
     public ActorsAdapter(Context context, ArrayList<Actor> list) {
         this.context = context;
         this.list = list;
+        sharedPreferences = context.getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -42,6 +47,10 @@ public class ActorsAdapter extends RecyclerView.Adapter<ActorsAdapter.ActorHolde
         Picasso.get().load(Constant.URL+"storage/actor_profiles/" + actor.getActor_img()).resize(200, 0).into(holder.imgActorProfile);
         holder.txtActorName.setText(actor.getActor_fname() + " " + actor.getActor_lname());
         holder.txtActorNotes.setText(actor.getActor_notes());
+
+        viewBinderHelper.setOpenOnlyOne(true);
+        viewBinderHelper.bind(holder.swipeRevealLayout, String.valueOf(list.get(position).getActor_ID()));
+        viewBinderHelper.closeLayout(String.valueOf(list.get(position).getActor_ID()));
     }
 
     @Override
@@ -60,6 +69,8 @@ public class ActorsAdapter extends RecyclerView.Adapter<ActorsAdapter.ActorHolde
             txtActorName = itemView.findViewById(R.id.txtActorName);
             txtActorNotes = itemView.findViewById(R.id.txtActorNotes);
             imgActorProfile = itemView.findViewById(R.id.imgActorProfile);
+
+            swipeRevealLayout = itemView.findViewById(R.id.swipeActorLayout);
         }
     }
 }

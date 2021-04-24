@@ -5,7 +5,7 @@
     android:layout_height="176dp"
     android:background="@color/colorDarkGrey"
     android:gravity="bottom"
-    android:padding="16dp"
+    android:padding="20dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -27,6 +27,8 @@
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:text="Jose Angelo Arboleda"
+            android:fontFamily="@font/notosanssc_bold"
+            android:includeFontPadding="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView

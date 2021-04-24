@@ -53,6 +53,7 @@
         android:background="@color/colorGrey"
         app:itemTextColor="@color/colorWhite"
         app:itemIconTint="@color/colorWhite"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        android:theme="@style/AppTheme.NoActionBar"
+        app:itemHorizontalPadding="25dp"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
