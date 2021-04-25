@@ -36,6 +36,7 @@ import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -320,10 +321,11 @@ public class AddMovieActivity extends AppCompatActivity {
 
                     MovieFragment.recyclerView.getAdapter().notifyItemInserted(0);
                     MovieFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "Movie Added", Toast.LENGTH_SHORT).show();
                     finish();
 
                     MovieFragment.refreshLayout.setRefreshing(false);
+
+                    StyleableToast.makeText(getApplicationContext(), "Movie Added", R.style.CustomToast).show();
                 }
 
             } catch (JSONException e) {
@@ -333,7 +335,7 @@ public class AddMovieActivity extends AppCompatActivity {
 
         }, error -> {
             error.printStackTrace();
-            Toast.makeText(this, "There was a problem adding the movie", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(), "There was a problem adding the movie", R.style.CustomToast).show();
             dialog.dismiss();
         }){
             @Override

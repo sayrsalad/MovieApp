@@ -28,6 +28,7 @@ import com.example.movieapp.Fragments.MovieFragment;
 import com.example.movieapp.Models.Actor;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -117,7 +118,7 @@ public class UpdateActorActivity extends AppCompatActivity {
 
                     ActorFragment.recyclerView.getAdapter().notifyItemChanged(position);
                     ActorFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "Actor Updated", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(getApplicationContext(), "Actor Update", R.style.CustomToast).show();
                     finish();
 
                     ActorFragment.refreshLayout.setRefreshing(false);
@@ -130,7 +131,7 @@ public class UpdateActorActivity extends AppCompatActivity {
 
         }, error -> {
             error.printStackTrace();
-            Toast.makeText(this, "There was a problem updating the actor", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(), "There was a problem updating the actor", R.style.CustomToast).show();
             dialog.dismiss();
         }){
             @Override

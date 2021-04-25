@@ -30,6 +30,7 @@ import com.example.movieapp.R;
 import com.example.movieapp.UserInfoActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -175,16 +176,16 @@ public class SignUpFragment extends Fragment {
                     editor.apply();
                     startActivity(new Intent(((AuthActivity)getContext()), UserInfoActivity.class));
                     ((AuthActivity) getContext()).finish();
-                    Toast.makeText(getContext(), "Register Successful", Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(getContext(), "Register Successful", R.style.CustomToast).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(getContext(), "Register Unsuccessful", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(getContext(), "Register Unsuccessful", R.style.CustomToast).show();
             }
             dialog.dismiss();
 
         }, error -> {
-            Toast.makeText(getContext(), "Register Unsuccessful", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getContext(), "Register Unsuccessful", R.style.CustomToast).show();
             error.printStackTrace();
             dialog.dismiss();
         }){

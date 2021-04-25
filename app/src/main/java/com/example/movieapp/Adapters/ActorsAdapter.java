@@ -34,6 +34,7 @@ import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Movie;
 import com.example.movieapp.R;
 import com.example.movieapp.UpdateActorActivity;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -162,11 +163,12 @@ public class ActorsAdapter extends RecyclerView.Adapter<ActorsAdapter.ActorHolde
                 }
                 dialog.dismiss();
                 progressDialog.dismiss();
+                StyleableToast.makeText(holder.itemView.getContext(), "Actor Deleted", R.style.CustomToast).show();
             }, error -> {
                 dialog.dismiss();
                 progressDialog.dismiss();
                 error.printStackTrace();
-                Toast.makeText(holder.itemView.getContext(), "There was a problem deleting the actor", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(holder.itemView.getContext(), "There was a problem deleting the actor", R.style.CustomToast).show();
             }){
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {

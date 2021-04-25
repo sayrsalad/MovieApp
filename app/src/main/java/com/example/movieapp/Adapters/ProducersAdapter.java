@@ -32,6 +32,7 @@ import com.example.movieapp.Models.Producer;
 import com.example.movieapp.R;
 import com.example.movieapp.UpdateMovieActivity;
 import com.example.movieapp.UpdateProducerActivity;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -138,11 +139,12 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
                 }
                 dialog.dismiss();
                 progressDialog.dismiss();
+                StyleableToast.makeText(holder.itemView.getContext(), "Producer Deleted", R.style.CustomToast).show();
             }, error -> {
                 dialog.dismiss();
                 progressDialog.dismiss();
                 error.printStackTrace();
-                Toast.makeText(holder.itemView.getContext(), "There was a problem deleting the producer", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(holder.itemView.getContext(), "There was a problem deleting the producer", R.style.CustomToast).show();
             }){
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {

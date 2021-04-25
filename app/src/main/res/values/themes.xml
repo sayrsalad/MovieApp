@@ -138,4 +138,17 @@
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
+    <style name="CustomToast">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">@color/colorYellow</item>
+        <item name="stFont">@font/notosanssc_regular</item>
+        <item name="stTextSize">12sp</item>
+        <item name="stColorBackground">@color/colorGrey</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">0dp</item>
+        <item name="stStrokeColor">#fff</item>
+        <item name="stLength">LONG</item>
+        <item name="stRadius">40dp</item>
+    </style>
+
 </resources>

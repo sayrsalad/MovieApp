@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +34,15 @@ import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Movie;
 import com.example.movieapp.R;
 import com.example.movieapp.UpdateMovieActivity;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,6 +91,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
             ImageView imgDialogMoviePoster  = dialog.findViewById(R.id.imgDialogMoviePoster);
             TextView txtDialogMovieTitle  = dialog.findViewById(R.id.txtDialogMovieTitle);
             TextView txtDialogMovieStory = dialog.findViewById(R.id.txtDialogMovieStory);
+            TextView txtDialogGenreDurationDate = dialog.findViewById(R.id.txtDialogGenreDurationDate);
+            TextView txtDialogAdditionalInfo = dialog.findViewById(R.id.txtDialogAdditionalInfo);
 
             RecyclerView movieCasts = dialog.findViewById(R.id.movieCasts);
             movieCasts.setLayoutManager(new GridLayoutManager(dialog.getContext(), 3));
@@ -94,6 +100,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
             Picasso.get().load(Constant.URL+"storage/posters/" + movie.getMovie_poster()).resize(0, 4000).into(imgDialogMoviePoster);
             txtDialogMovieTitle.setText(movie.getMovie_title());
             txtDialogMovieStory.setText(movie.getMovie_story());
+            txtDialogGenreDurationDate.setText(movie.getGenre_name() + " | " + durationBuilder(movie.getMovie_film_duration()) + " | " + movie.getMovie_release_date());
+            txtDialogAdditionalInfo.setText(movie.getMovie_additional_info());
 
             CastsAdapter castsAdapter = new CastsAdapter(dialog.getContext(), actors);
             movieCasts.setAdapter(castsAdapter);
@@ -127,6 +135,21 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
             viewBinderHelper.closeLayout(String.valueOf(list.get(position).getMovie_ID()));
             delete(movie.getMovie_ID(), position, holder);
         });
+    }
+
+    private String durationBuilder(int movie_film_duration) {
+
+        String duration;
+        int hours = movie_film_duration / 60;
+        int minutes = movie_film_duration % 60;
+
+        if (hours == 0) {
+            duration = minutes + "m";
+        } else {
+            duration = hours + "h" + minutes + "m";
+        }
+
+        return duration;
     }
 
     private void delete(int movie_id, int position, MovieHolder holder) {
@@ -166,11 +189,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
                 }
                 dialog.dismiss();
                 progressDialog.dismiss();
+                StyleableToast.makeText(holder.itemView.getContext(), "Movie Deleted", R.style.CustomToast).show();
             }, error -> {
                 dialog.dismiss();
                 progressDialog.dismiss();
                 error.printStackTrace();
-                Toast.makeText(holder.itemView.getContext(), "There was a problem deleting the movie", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(holder.itemView.getContext(), "There was a problem deleting the movie", R.style.CustomToast).show();
             }){
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {

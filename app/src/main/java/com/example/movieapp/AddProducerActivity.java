@@ -27,6 +27,7 @@ import com.example.movieapp.Models.Movie;
 import com.example.movieapp.Models.Producer;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,10 +104,11 @@ public class AddProducerActivity extends AppCompatActivity {
 
                     ProducerFragment.recyclerView.getAdapter().notifyItemInserted(0);
                     ProducerFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "Producer Added", Toast.LENGTH_SHORT).show();
                     finish();
 
                     ProducerFragment.refreshLayout.setRefreshing(false);
+
+                    StyleableToast.makeText(getApplicationContext(), "Producer Added", R.style.CustomToast).show();
                 }
 
             } catch (JSONException e) {
@@ -117,7 +119,7 @@ public class AddProducerActivity extends AppCompatActivity {
         }, error -> {
             error.printStackTrace();
             error.getMessage();
-            Toast.makeText(this, "There was a problem adding the producer", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(), "There was a problem adding the producer", R.style.CustomToast).show();
             dialog.dismiss();
         }){
             @Override

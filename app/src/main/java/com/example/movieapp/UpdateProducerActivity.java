@@ -22,6 +22,7 @@ import com.example.movieapp.Fragments.ProducerFragment;
 import com.example.movieapp.Models.Producer;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,22 +103,23 @@ public class UpdateProducerActivity extends AppCompatActivity {
 
                     ProducerFragment.recyclerView.getAdapter().notifyItemChanged(position);
                     ProducerFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "Producer Added", Toast.LENGTH_SHORT).show();
                     finish();
 
                     ProducerFragment.refreshLayout.setRefreshing(false);
+
+                    StyleableToast.makeText(getApplicationContext(), "Producer Update", R.style.CustomToast).show();
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "There was a problem updating the producer", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(getApplicationContext(), "There was a problem updating the producer", R.style.CustomToast).show();
             }
             dialog.dismiss();
 
         }, error -> {
             error.printStackTrace();
             error.getMessage();
-            Toast.makeText(this, "There was a problem updating the producer", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(), "There was a problem updating the producer", R.style.CustomToast).show();
             dialog.dismiss();
         }){
             @Override

@@ -35,6 +35,7 @@ import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.muddzdev.styleabletoast.StyleableToast;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -331,10 +332,11 @@ public class UpdateMovieActivity extends AppCompatActivity {
 
                     MovieFragment.recyclerView.getAdapter().notifyItemChanged(position);
                     MovieFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "Movie Updated", Toast.LENGTH_SHORT).show();
                     finish();
 
                     MovieFragment.refreshLayout.setRefreshing(false);
+
+                    StyleableToast.makeText(getApplicationContext(), "Movie Update", R.style.CustomToast).show();
                 }
 
             } catch (JSONException e) {
@@ -345,7 +347,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
         }, error -> {
             error.printStackTrace();
             error.getMessage();
-            Toast.makeText(this, "There was a problem adding the movie", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getApplicationContext(), "There was a problem updating the movie", R.style.CustomToast).show();
             dialog.dismiss();
         }){
             @Override

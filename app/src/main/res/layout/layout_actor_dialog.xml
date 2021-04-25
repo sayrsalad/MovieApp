@@ -8,6 +8,14 @@
     android:layout_margin="10dp"
     android:theme="@style/DialogTheme">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingRight="20dp"
+        android:textSize="20dp"
+        android:text="  "/>
+
 
     <ScrollView
         android:layout_width="match_parent"

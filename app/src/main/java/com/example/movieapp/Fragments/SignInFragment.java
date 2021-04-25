@@ -28,6 +28,7 @@ import com.example.movieapp.HomeActivity;
 import com.example.movieapp.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -144,15 +145,16 @@ public class SignInFragment extends Fragment {
                     editor.apply();
                     startActivity(new Intent(((AuthActivity)getContext()), HomeActivity.class));
                     ((AuthActivity) getContext()).finish();
-                    Toast.makeText(getContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+
+                    StyleableToast.makeText(getContext(), "Login Successful", R.style.CustomToast).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                Toast.makeText(getContext(), "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+                StyleableToast.makeText(getContext(), "Login Unsuccessful", R.style.CustomToast).show();
             }
             dialog.dismiss();
         }, error -> {
-            Toast.makeText(getContext(), "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+            StyleableToast.makeText(getContext(), "Login Unsuccessful", R.style.CustomToast).show();
             error.printStackTrace();
             dialog.dismiss();
         }){
@@ -169,4 +171,5 @@ public class SignInFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
     }
+
 }

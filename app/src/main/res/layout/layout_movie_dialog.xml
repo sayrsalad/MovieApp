@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="600dp"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:background="@drawable/dlg_round"
     android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:paddingTop="-10dp"
     android:theme="@style/DialogTheme">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:paddingRight="20dp"
+        android:textSize="20dp"
+        android:text="  "/>
+
 
 
     <ScrollView
@@ -17,71 +27,83 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
-        
+
+
             <ImageView
+                android:id="@+id/imgDialogMoviePoster"
                 android:layout_width="400dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/imgDialogMoviePoster"
-                android:src="@drawable/ic_launcher_foreground"/>
+                android:src="@drawable/ic_launcher_foreground"
+                android:elevation="5dp"/>
 
             <TextView
+                android:id="@+id/txtDialogMovieTitle"
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:includeFontPadding="false"
                 android:text="Movie Title"
                 android:textColor="@color/colorWhite"
-                android:textSize="20dp"
-                android:id="@+id/txtDialogMovieTitle"
                 android:textFontWeight="1000"
-                android:includeFontPadding="false"/>
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/txtDialogGenreDurationDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="Genre | Duration | Date"
+                android:gravity="center"
+                android:textColor="@color/colorLightLightGrey"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Movie Info"
-                android:textFontWeight="900"
                 android:includeFontPadding="false"
-                android:textColor="@color/colorYellow"/>
-            
+                android:text="Story"
+                android:textColor="@color/colorYellow"
+                android:textFontWeight="900" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/txtDialogMovieStory"
-                android:text="@string/loremipsum"
-                android:includeFontPadding="false"/>
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Genre"
-                android:textFontWeight="900"
                 android:includeFontPadding="false"
-                android:textColor="@color/colorYellow"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/txtDialogGenre"
-                android:text="Genre"
-                android:includeFontPadding="false"/>
+                android:text="@string/loremipsum" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:includeFontPadding="false"
+                android:text="Info"
+                android:textColor="@color/colorYellow"
+                android:textFontWeight="900" />
+
+            <TextView
+                android:id="@+id/txtDialogAdditionalInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="@string/loremipsum" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:includeFontPadding="false"
                 android:text="Casts"
-                android:textFontWeight="900"
-                android:includeFontPadding="false"
-                android:textColor="@color/colorYellow"/>
+                android:textColor="@color/colorYellow"
+                android:textFontWeight="900" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/movieCasts"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/movieCasts">
+                android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
 
