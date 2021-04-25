@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,22 +26,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
-import com.example.movieapp.AddMovieActivity;
 import com.example.movieapp.Constant;
 import com.example.movieapp.Fragments.MovieFragment;
 import com.example.movieapp.HomeActivity;
 import com.example.movieapp.Models.Actor;
-import com.example.movieapp.Models.Certificate;
-import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
 import com.example.movieapp.R;
 import com.example.movieapp.UpdateMovieActivity;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -131,13 +124,14 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
         });
 
         holder.btnDeleteMovie.setOnClickListener( v -> {
-            deleteMovie(movie.getMovie_ID(), position, holder);
+            viewBinderHelper.closeLayout(String.valueOf(list.get(position).getMovie_ID()));
+            delete(movie.getMovie_ID(), position, holder);
         });
     }
 
-    private void deleteMovie(int movie_id, int position, MovieHolder holder) {
+    private void delete(int movie_id, int position, MovieHolder holder) {
         Dialog dialog = new Dialog(holder.itemView.getContext());
-        dialog.setContentView(R.layout.custom_delete_movie_alert_dialog);
+        dialog.setContentView(R.layout.custom_delete_alert_dialog);
 
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -157,7 +151,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
 
                 try {
                     JSONObject object = new JSONObject(response);
-
+                    MovieFragment.refreshLayout.setRefreshing(true);
                     if (object.getBoolean("success")) {
 
                         list.remove(position);
@@ -173,6 +167,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
                 dialog.dismiss();
                 progressDialog.dismiss();
             }, error -> {
+                dialog.dismiss();
                 progressDialog.dismiss();
                 error.printStackTrace();
                 Toast.makeText(holder.itemView.getContext(), "There was a problem deleting the movie", Toast.LENGTH_SHORT).show();

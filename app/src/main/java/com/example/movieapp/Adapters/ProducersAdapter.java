@@ -1,9 +1,15 @@
 package com.example.movieapp.Adapters;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,13 +17,29 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.example.movieapp.Constant;
+import com.example.movieapp.Fragments.MovieFragment;
+import com.example.movieapp.Fragments.ProducerFragment;
+import com.example.movieapp.HomeActivity;
 import com.example.movieapp.Models.Producer;
 import com.example.movieapp.R;
+import com.example.movieapp.UpdateMovieActivity;
+import com.example.movieapp.UpdateProducerActivity;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.ProducerHolder> {
 
@@ -25,11 +47,13 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
     private ArrayList<Producer> list;
     private OnItemListener onItemListener;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+    private SharedPreferences sharedPreferences;
 
     public ProducersAdapter(Context context, ArrayList<Producer> list, OnItemListener onItemListener) {
         this.context = context;
         this.list = list;
         this.onItemListener = onItemListener;
+        sharedPreferences = context.getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -52,6 +76,89 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
         viewBinderHelper.bind(holder.swipeRevealLayout, String.valueOf(list.get(position).getProducer_ID()));
         viewBinderHelper.closeLayout(String.valueOf(list.get(position).getProducer_ID()));
 
+        holder.btnEditProducer.setOnClickListener( v -> {
+            Intent i = new Intent(((HomeActivity)context), UpdateProducerActivity.class);
+            i.putExtra("producer_ID", producer.getProducer_ID());
+            i.putExtra("producer_name", producer.getProducer_name());
+            i.putExtra("producer_email_address", producer.getProducer_email_address());
+            i.putExtra("producer_website", producer.getProducer_website());
+
+            i.putExtra("position", position);
+            context.startActivity(i);
+
+            viewBinderHelper.closeLayout(String.valueOf(list.get(position).getProducer_ID()));
+        });
+
+        holder.btnDeleteProducer.setOnClickListener( v -> {
+            viewBinderHelper.closeLayout(String.valueOf(list.get(position).getProducer_ID()));
+            delete(producer.getProducer_ID(), position, holder);
+        });
+
+    }
+
+    private void delete(int producer_id, int position, ProducerHolder holder) {
+        Dialog dialog = new Dialog(holder.itemView.getContext());
+        dialog.setContentView(R.layout.custom_delete_alert_dialog);
+        TextView txtDeleteDialogTitle = dialog.findViewById(R.id.txtDeleteDialogTitle);
+        TextView txtDeleteDialogMessage = dialog.findViewById(R.id.txtDeleteDialogMessage);
+
+        txtDeleteDialogTitle.setText("Delete Producer");
+        txtDeleteDialogMessage.setText("Are you sure you want to delete this producer?");
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        Button btnYes = dialog.findViewById(R.id.btnYes);
+        Button btnNo = dialog.findViewById(R.id.btnNo);
+
+        dialog.show();
+
+        btnYes.setOnClickListener(v -> {
+            ProgressDialog progressDialog = new ProgressDialog(holder.itemView.getContext());
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Deleting Producer");
+            progressDialog.show();
+
+            StringRequest request = new StringRequest(Request.Method.DELETE, Constant.DELETE_PRODUCER+"/"+producer_id, response -> {
+
+                try {
+                    JSONObject object = new JSONObject(response);
+                    ProducerFragment.refreshLayout.setRefreshing(true);
+                    if (object.getBoolean("success")) {
+
+                        list.remove(position);
+                        notifyItemRemoved(position);
+                        notifyDataSetChanged();
+
+                        ProducerFragment.refreshLayout.setRefreshing(false);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                dialog.dismiss();
+                progressDialog.dismiss();
+            }, error -> {
+                dialog.dismiss();
+                progressDialog.dismiss();
+                error.printStackTrace();
+                Toast.makeText(holder.itemView.getContext(), "There was a problem deleting the producer", Toast.LENGTH_SHORT).show();
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    String token = sharedPreferences.getString("access_token", "");
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put("Authorization", "Bearer" + token);
+                    return map;
+                }
+            };
+            RequestQueue queue = Volley.newRequestQueue(holder.itemView.getContext());
+            queue.add(request);
+        });
+
+        btnNo.setOnClickListener(v -> {
+            dialog.cancel();
+        });
     }
 
     @Override
@@ -83,13 +190,6 @@ public class ProducersAdapter extends RecyclerView.Adapter<ProducersAdapter.Prod
 
             itemView.setClickable(true);
 
-            btnEditProducer.setOnClickListener( v -> {
-                Toast.makeText(context, "Edit" + String.valueOf(btnEditProducer.getId()), Toast.LENGTH_SHORT).show();
-            });
-
-            btnDeleteProducer.setOnClickListener( v -> {
-                Toast.makeText(context, "Delete" + String.valueOf(btnDeleteProducer.getId()), Toast.LENGTH_SHORT).show();
-            });
         }
 
         @Override

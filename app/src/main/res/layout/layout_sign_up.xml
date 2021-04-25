@@ -23,28 +23,6 @@
         android:textSize="32sp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtLayoutNameSignUp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:textColorHint="@color/colorWhite"
-        android:theme="@style/InputStyle"
-        app:errorTextColor="@color/colorRedError">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtNameSignUp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/nameHint"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/colorWhite"
-            android:textSize="15sp"
-            android:theme="@style/InputStyle" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLayoutEmailSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

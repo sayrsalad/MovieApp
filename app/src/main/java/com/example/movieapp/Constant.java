@@ -22,7 +22,11 @@ public class Constant {
     public static final String ADD_PRODUCER = PRODUCERS;
 
     public static final String UPDATE_MOVIE = MOVIES;
+    public static final String UPDATE_ACTOR = ACTORS;
+    public static final String UPDATE_PRODUCER = PRODUCERS;
 
     public static final String DELETE_MOVIES = MOVIES;
+    public static final String DELETE_ACTOR = ACTORS;
+    public static final String DELETE_PRODUCER = PRODUCERS;
 
 }

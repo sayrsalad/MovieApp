@@ -17,7 +17,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/btnMoreMovie"
+            android:id="@+id/btnMoreActor"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_info_24"
@@ -28,7 +28,7 @@
             android:clickable="true"/>
 
         <ImageView
-            android:id="@+id/btnEditMovie"
+            android:id="@+id/btnEditActor"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_edit_24"
@@ -39,7 +39,7 @@
             android:clickable="true"/>
 
         <ImageView
-            android:id="@+id/btnDeleteMovie"
+            android:id="@+id/btnDeleteActor"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_baseline_delete_24"

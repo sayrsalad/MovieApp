@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    tools:context=".AddProducerActivity">
+    tools:context=".UpdateActorActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
@@ -19,13 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="12dp"
             android:background="@android:color/transparent"
-            android:onClick="cancelProducer"
+            android:onClick="cancelActor"
             android:src="@drawable/ic_baseline_arrow_back_24" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Producer"
+            android:text="New Actor"
             android:textColor="@color/colorWhite"
             android:textSize="18sp" />
 
@@ -42,12 +42,30 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/imgUpdateActorProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:adjustViewBounds="true" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:onClick="changeActorProfile"
+                android:paddingTop="3dp"
+                android:text="Change Photo"
+                android:textColor="@color/colorYellow"
+                android:textSize="15sp" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtLayoutProducerName"
+                android:id="@+id/txtLayoutFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/colorWhite"
                 android:textColorHint="@color/colorWhite"
@@ -55,11 +73,11 @@
                 app:errorTextColor="@color/colorRedError">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtProducerName"
+                    android:id="@+id/txtFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:hint="Name"
+                    android:hint="First Name"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
                     android:theme="@style/InputStyle" />
@@ -67,7 +85,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtLayoutEmailAddress"
+                android:id="@+id/txtLayoutLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -76,11 +94,11 @@
                 app:errorTextColor="@color/colorRedError">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtEmailAddress"
+                    android:id="@+id/txtLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:hint="Email"
+                    android:hint="Last Name"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
                     android:theme="@style/InputStyle" />
@@ -88,7 +106,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtLayoutWebsite"
+                android:id="@+id/txtLayoutNotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -97,11 +115,11 @@
                 app:errorTextColor="@color/colorRedError">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtWebsite"
+                    android:id="@+id/txtNotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:hint="Website"
+                    android:hint="Notes"
                     android:textColor="@color/colorWhite"
                     android:textSize="15sp"
                     android:theme="@style/InputStyle" />
@@ -109,7 +127,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/btnAddProducer"
+                android:id="@+id/btnUpdateActor"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
                 android:layout_gravity="center_horizontal"
@@ -118,7 +136,7 @@
                 android:background="@drawable/btn_round"
                 android:backgroundTint="@color/colorGrey"
                 android:elevation="4dp"
-                android:text="Add"
+                android:text="Save"
                 android:textAllCaps="false"
                 android:textColor="@color/colorYellow"
                 android:textSize="17sp"

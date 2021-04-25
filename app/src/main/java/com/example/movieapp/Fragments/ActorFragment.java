@@ -46,9 +46,9 @@ import java.util.Map;
 
 public class ActorFragment extends Fragment {
     private View view;
-    private RecyclerView recyclerView;
-    private ArrayList<Actor> arrayList;
-    private SwipeRefreshLayout refreshLayout;
+    public static  RecyclerView recyclerView;
+    public static  ArrayList<Actor> arrayList;
+    public static SwipeRefreshLayout refreshLayout;
     private ActorsAdapter actorsAdapter;
     private Toolbar toolbar;
     private SharedPreferences sharedPreferences;
@@ -110,6 +110,7 @@ public class ActorFragment extends Fragment {
                     JSONArray array = new JSONArray(object.getString("actors"));
                     for ( int i = 0; i < array.length(); i++) {
                         JSONObject actorObject = array.getJSONObject(i);
+                        JSONArray movieArray = actorObject.getJSONArray("movie");
 
                         Actor actor = new Actor();
                         actor.setActor_ID(actorObject.getInt("actor_ID"));
@@ -118,6 +119,29 @@ public class ActorFragment extends Fragment {
                         actor.setActor_notes(actorObject.getString("actor_notes"));
                         actor.setActor_status(actorObject.getString("actor_status"));
                         actor.setActor_img(actorObject.getString("actor_img"));
+
+                        ArrayList<Movie> movieArrayList = new ArrayList<Movie>();
+
+                        for ( int a = 0; a < movieArray.length(); a++) {
+                            JSONObject movieObject = movieArray.getJSONObject(a);
+
+                            Movie movie = new Movie();
+
+                            movie.setMovie_ID(movieObject.getInt("movie_ID"));
+                            movie.setMovie_title(movieObject.getString("movie_title"));
+                            movie.setMovie_story(movieObject.getString("movie_story"));
+                            movie.setMovie_release_date(movieObject.getString("movie_release_date"));
+                            movie.setMovie_film_duration(movieObject.getInt("movie_film_duration"));
+                            movie.setMovie_additional_info(movieObject.getString("movie_additional_info"));
+                            movie.setGenre_ID(movieObject.getInt("genre_ID"));
+                            movie.setCertificate_ID(movieObject.getInt("certificate_ID"));
+                            movie.setMovie_poster(movieObject.getString("movie_poster"));
+                            movie.setMovie_status(movieObject.getString("movie_status"));
+
+                            movieArrayList.add(movie);
+                        }
+
+                        actor.setMovies(movieArrayList);
 
                         arrayList.add(actor);
                     }

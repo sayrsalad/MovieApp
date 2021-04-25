@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -153,7 +154,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
         });
 
         btnUpdateMovie.setOnClickListener(v -> {
-            updateMovie();
+            update();
         });
     }
 
@@ -275,7 +276,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
         startActivityForResult(i, GALLERY_CHANGE_POST);
     }
 
-    private void updateMovie() {
+    private void update() {
         dialog.setMessage("Saving");
         dialog.show();
 
@@ -328,12 +329,10 @@ public class UpdateMovieActivity extends AppCompatActivity {
 
                     MovieFragment.arrayList.set(position, movie);
 
-                    MovieFragment.recyclerView.getAdapter().notifyItemInserted(0);
+                    MovieFragment.recyclerView.getAdapter().notifyItemChanged(position);
                     MovieFragment.recyclerView.getAdapter().notifyDataSetChanged();
                     Toast.makeText(this, "Movie Updated", Toast.LENGTH_SHORT).show();
                     finish();
-
-
 
                     MovieFragment.refreshLayout.setRefreshing(false);
                 }
@@ -361,7 +360,6 @@ public class UpdateMovieActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();
-                map.put("movie_ID", movie_ID+"");
                 map.put("movie_title", txtTitle.getText().toString().trim());
                 map.put("movie_story", txtStory.getText().toString().trim());
                 map.put("movie_release_date", txtReleaseDate.getText().toString().trim());

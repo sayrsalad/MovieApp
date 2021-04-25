@@ -1,9 +1,21 @@
 package com.example.movieapp.Models;
 
+import java.util.ArrayList;
+
 public class Actor {
 
     private int actor_ID;
     private String actor_fname, actor_lname, actor_notes, actor_img, actor_status;
+
+    public ArrayList<Movie> getMovies() {
+        return arrayList;
+    }
+
+    public void setMovies(ArrayList<Movie> arrayList) {
+        this.arrayList = arrayList;
+    }
+
+    private ArrayList<Movie> arrayList;
 
     public int getActor_ID() {
         return actor_ID;

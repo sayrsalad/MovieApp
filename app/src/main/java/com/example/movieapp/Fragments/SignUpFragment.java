@@ -39,8 +39,8 @@ import java.util.Map;
 
 public class SignUpFragment extends Fragment {
     private View view;
-    private TextInputLayout layoutEmail, layoutPassword, layoutConfirm, layoutName;
-    private TextInputEditText txtEmail, txtPassword, txtConfirm, txtName;
+    private TextInputLayout layoutEmail, layoutPassword, layoutConfirm;
+    private TextInputEditText txtEmail, txtPassword, txtConfirm;
     private TextView txtSignIn;
     private Button btnSignUp;
     private ProgressDialog dialog;
@@ -56,11 +56,9 @@ public class SignUpFragment extends Fragment {
     }
 
     private void init() {
-        layoutName = view.findViewById(R.id.txtLayoutNameSignUp);
         layoutPassword = view.findViewById(R.id.txtLayoutPasswordSignUp);
         layoutEmail = view.findViewById(R.id.txtLayoutEmailSignUp);
         layoutConfirm = view.findViewById(R.id.txtLayoutConfirmSignUp);
-        txtName = view.findViewById(R.id.txtNameSignUp);
         txtPassword = view.findViewById(R.id.txtPasswordSignUp);
         txtEmail = view.findViewById(R.id.txtEmailSignUp);
         txtConfirm = view.findViewById(R.id.txtConfirmSignUp);
@@ -76,25 +74,6 @@ public class SignUpFragment extends Fragment {
         btnSignUp.setOnClickListener(v->{
             if (validate()) {
                 register();
-            }
-        });
-
-        txtName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (txtName.getText().toString().isEmpty()) {
-                    layoutName.setErrorEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -158,12 +137,6 @@ public class SignUpFragment extends Fragment {
 
     private boolean validate() {
 
-        if (txtName.getText().toString().isEmpty()) {
-            layoutName.setErrorEnabled(true);
-            layoutName.setError("Please enter your name");
-            return false;
-        }
-
         if (txtEmail.getText().toString().isEmpty()) {
             layoutEmail.setErrorEnabled(true);
             layoutEmail.setError("Enter a valid e-mail");
@@ -219,7 +192,6 @@ public class SignUpFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> map = new HashMap<>();
-                map.put("name", txtName.getText().toString());
                 map.put("email", txtEmail.getText().toString().trim());
                 map.put("password", txtPassword.getText().toString());
                 map.put("password_confirmation", txtConfirm.getText().toString());

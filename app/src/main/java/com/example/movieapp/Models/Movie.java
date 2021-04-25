@@ -1,6 +1,5 @@
 package com.example.movieapp.Models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Movie  {
@@ -13,6 +12,10 @@ public class Movie  {
     private String movie_poster;
     private String movie_status;
     private String genre_name;
+    private String certificate_name;
+    private ArrayList<Actor> arrayList;
+    private Genre genre;
+    private Certificate certificate;
 
     public String getGenre_name() {
         return genre_name;
@@ -29,13 +32,6 @@ public class Movie  {
     public void setCertificate_name(String certificate_name) {
         this.certificate_name = certificate_name;
     }
-
-    private String certificate_name;
-    private Actor actor;
-    private ArrayList<Actor> arrayList;
-
-    private Genre genre;
-    private Certificate certificate;
 
     public int getMovie_ID() {
         return movie_ID;

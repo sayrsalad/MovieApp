@@ -120,13 +120,10 @@ public class AddMovieActivity extends AppCompatActivity {
             dialog.show();
         });
 
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month + 1;
-                String date = year + "-" + month + "-" + dayOfMonth;
-                txtReleaseDate.setText(date);
-            }
+        dateSetListener = (view, year, month, dayOfMonth) -> {
+            month = month + 1;
+            String date = year + "-" + month + "-" + dayOfMonth;
+            txtReleaseDate.setText(date);
         };
 
         txtGenre.setOnItemClickListener((parent, view, position, rowId) -> {
@@ -262,20 +259,6 @@ public class AddMovieActivity extends AppCompatActivity {
         startActivityForResult(i, GALLERY_CHANGE_POST);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_CHANGE_POST && resultCode == Activity.RESULT_OK) {
-            Uri imgUri = data.getData();
-            imgAddMoviePoster.setImageURI(imgUri);
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private void add() {
 
         dialog.setMessage("Adding Movie");
@@ -310,6 +293,11 @@ public class AddMovieActivity extends AppCompatActivity {
                     movie.setMovie_film_duration(movieObject.getInt("movie_film_duration"));
                     movie.setMovie_additional_info(movieObject.getString("movie_additional_info"));
                     movie.setMovie_poster(movieObject.getString("movie_poster"));
+                    movie.setGenre_name(genreObject.getString("genre_name"));
+                    movie.setCertificate_name(certificateObject.getString("certificate_name"));
+
+                    movie.setGenre_ID(movieObject.getInt("genre_ID"));
+                    movie.setCertificate_ID(movieObject.getInt("certificate_ID"));
 
                     JSONArray actorArray = movieObject.getJSONArray("actor");
                     ArrayList<Actor> actorArrayList = new ArrayList<Actor>();
@@ -376,6 +364,20 @@ public class AddMovieActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(AddMovieActivity.this );
         queue.add(request);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_CHANGE_POST && resultCode == Activity.RESULT_OK) {
+            Uri imgUri = data.getData();
+            imgAddMoviePoster.setImageURI(imgUri);
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private String bitmapToString(Bitmap bitmap) {

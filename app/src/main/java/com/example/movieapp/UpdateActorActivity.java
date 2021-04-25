@@ -23,32 +23,29 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.movieapp.Adapters.ActorsAdapter;
 import com.example.movieapp.Fragments.ActorFragment;
 import com.example.movieapp.Fragments.MovieFragment;
 import com.example.movieapp.Models.Actor;
-import com.example.movieapp.Models.Certificate;
-import com.example.movieapp.Models.Genre;
-import com.example.movieapp.Models.Movie;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddActorActivity extends AppCompatActivity {
+public class UpdateActorActivity extends AppCompatActivity {
+
+    private int position = 0, actor_ID = 0;
     private static final int GALLERY_CHANGE_POST = 3;
-    private ImageView imgAddActorProfile;
+    private ImageView imgUpdateActorProfile;
     private TextInputLayout txtLayoutFirstName, txtLayoutLastName, txtLayoutNotes;
     private TextInputEditText txtFirstName, txtLastName, txtNotes;
-    private Button btnAddActor;
+    private Button btnUpdateActor;
     private Bitmap bitmap = null;
     private ProgressDialog dialog;
     private SharedPreferences sharedPreferences;
@@ -56,14 +53,14 @@ public class AddActorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_actor);
+        setContentView(R.layout.activity_update_actor);
         init();
     }
 
     private void init() {
         sharedPreferences = getApplicationContext().getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-        btnAddActor = findViewById(R.id.btnAddActor);
-        imgAddActorProfile = findViewById(R.id.imgAddActorProfile);
+        btnUpdateActor = findViewById(R.id.btnUpdateActor);
+        imgUpdateActorProfile = findViewById(R.id.imgUpdateActorProfile);
 
         txtLayoutFirstName = findViewById(R.id.txtLayoutFirstName);
         txtLayoutLastName = findViewById(R.id.txtLayoutLastName);
@@ -73,27 +70,32 @@ public class AddActorActivity extends AppCompatActivity {
         txtLastName = findViewById(R.id.txtLastName);
         txtNotes = findViewById(R.id.txtNotes);
 
-        imgAddActorProfile.setImageURI(getIntent().getData());
+        txtFirstName.setText(getIntent().getStringExtra("actor_fname"));
+        txtLastName.setText(getIntent().getStringExtra("actor_lname"));
+        txtNotes.setText(getIntent().getStringExtra("actor_notes"));
+
+        if (getIntent().getBooleanExtra("fromGallery", false)) {
+            imgUpdateActorProfile.setImageURI(getIntent().getData());
+        } else {
+            Picasso.get().load(Constant.URL+"storage/actor_profiles/" + getIntent().getStringExtra("actor_img")).resize(500, 0).into(imgUpdateActorProfile);
+        }
 
         dialog = new ProgressDialog(this);
         dialog.setCancelable(false);
 
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), getIntent().getData());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        position = getIntent().getIntExtra("position", 0);
+        actor_ID = getIntent().getIntExtra("actor_ID", 0);
 
-        btnAddActor.setOnClickListener( v -> {
-            add();
+        btnUpdateActor.setOnClickListener( v -> {
+            update();
         });
     }
 
-    private void add() {
-        dialog.setMessage("Adding Actor");
+    private void update() {
+        dialog.setMessage("Updating Actor");
         dialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.POST, Constant.ADD_ACTOR, response -> {
+        StringRequest request = new StringRequest(Request.Method.PUT, Constant.UPDATE_ACTOR+"/"+actor_ID, response -> {
 
             try {
                 JSONObject object = new JSONObject(response);
@@ -111,11 +113,11 @@ public class AddActorActivity extends AppCompatActivity {
                     actor.setActor_status(actorObject.getString("actor_status"));
                     actor.setActor_img(actorObject.getString("actor_img"));
 
-                    ActorFragment.arrayList.add(0, actor);
+                    ActorFragment.arrayList.set(position, actor);
 
-                    ActorFragment.recyclerView.getAdapter().notifyItemInserted(0);
+                    ActorFragment.recyclerView.getAdapter().notifyItemChanged(position);
                     ActorFragment.recyclerView.getAdapter().notifyDataSetChanged();
-                    Toast.makeText(this, "Movie Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Actor Updated", Toast.LENGTH_SHORT).show();
                     finish();
 
                     ActorFragment.refreshLayout.setRefreshing(false);
@@ -128,7 +130,7 @@ public class AddActorActivity extends AppCompatActivity {
 
         }, error -> {
             error.printStackTrace();
-            Toast.makeText(this, "There was a problem adding the actor", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "There was a problem updating the actor", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         }){
             @Override
@@ -152,7 +154,7 @@ public class AddActorActivity extends AppCompatActivity {
                 return map;
             }
         };
-        RequestQueue queue = Volley.newRequestQueue(AddActorActivity.this );
+        RequestQueue queue = Volley.newRequestQueue(UpdateActorActivity.this );
         queue.add(request);
     }
 
@@ -163,6 +165,7 @@ public class AddActorActivity extends AppCompatActivity {
     public void changeActorProfile(View view) {
         Intent i = new Intent(Intent.ACTION_PICK);
         i.setType("image/*");
+        i.putExtra("fromGallery", true);
         startActivityForResult(i, GALLERY_CHANGE_POST);
     }
 
@@ -171,9 +174,9 @@ public class AddActorActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_CHANGE_POST && resultCode == Activity.RESULT_OK) {
             Uri imgUri = data.getData();
-            imgAddActorProfile.setImageURI(imgUri);
+            imgUpdateActorProfile.setImageURI(imgUri);
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), getIntent().getData());
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
