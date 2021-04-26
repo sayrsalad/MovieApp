@@ -53,7 +53,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
 
     private int position = 0, movie_ID = 0;
     private static final int GALLERY_CHANGE_POST = 3;
-    private Button btnUpdateMovie;
+    private Button btnUpdateMovie, btnAddActorRole;
     private ImageView imgUpdateMoviePoster;
     private TextInputLayout txtLayoutTitle, txtLayoutStory, txtLayoutReleaseDate, txtLayoutFilmDuration, txtLayoutAdditionalInfo, txtLayoutGenre, txtLayoutCertificate;
     private TextInputEditText txtTitle, txtStory, txtReleaseDate, txtFilmDuration, txtAdditionalInfo;
@@ -77,6 +77,7 @@ public class UpdateMovieActivity extends AppCompatActivity {
     private void init() {
         sharedPreferences = getApplicationContext().getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         btnUpdateMovie = findViewById(R.id.btnUpdateMovie);
+        btnAddActorRole = findViewById(R.id.btnAddActorRole);
         imgUpdateMoviePoster = findViewById(R.id.imgUpdateMoviePoster);
 
         txtTitle = findViewById(R.id.txtTitle);
@@ -156,6 +157,13 @@ public class UpdateMovieActivity extends AppCompatActivity {
 
         btnUpdateMovie.setOnClickListener(v -> {
             update();
+        });
+
+        btnAddActorRole.setOnClickListener( v -> {
+            Intent i = new Intent(getApplicationContext(), AddActorRoleActivity.class);
+            i.putExtra("movie_ID", movie_ID);
+            i.putExtra("movie_title", getIntent().getStringExtra("movie_title"));
+            startActivity(i);
         });
     }
 

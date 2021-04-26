@@ -13,6 +13,8 @@ public class Constant {
     public static final String MOVIES = HOME + "/movie";
     public static final String ACTORS = HOME + "/actor";
     public static final String PRODUCERS = HOME + "/producer";
+    public static final String ROLES = HOME + "/role";
+
 
     public static final String GENRES = HOME + "/genre ";
     public static final String CERTIFICATES = HOME + "/certificate";
@@ -20,6 +22,7 @@ public class Constant {
     public static final String ADD_MOVIE = MOVIES;
     public static final String ADD_ACTOR = ACTORS;
     public static final String ADD_PRODUCER = PRODUCERS;
+    public static final String ADD_MOVIE_ACTOR_ROLE = MOVIES + "/actor_role";
 
     public static final String UPDATE_MOVIE = MOVIES;
     public static final String UPDATE_ACTOR = ACTORS;

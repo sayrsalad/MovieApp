@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context=".AddActorRoleActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        app:title="   ">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp"
+            android:background="@android:color/transparent"
+            android:onClick="cancelCast"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Cast"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutMovie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtMovie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Movie"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle"
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutActor"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:endIconMode="dropdown_menu"
+                app:endIconTint="@color/colorWhite"
+                app:errorTextColor="@color/colorRedError">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtActor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:dropDownWidth="300dp"
+                    android:dropDownHeight="200dp"
+                    android:dropDownSelector="@drawable/dlg_round"
+                    android:focusable="false"
+                    android:hint="Actor"
+                    android:inputType="none"
+                    android:popupBackground="@color/colorGrey"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutRole"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:endIconMode="dropdown_menu"
+                app:endIconTint="@color/colorWhite"
+                app:errorTextColor="@color/colorRedError">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtRole"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    android:dropDownWidth="300dp"
+                    android:dropDownHeight="200dp"
+                    android:dropDownSelector="@drawable/dlg_round"
+                    android:focusable="false"
+                    android:hint="Role"
+                    android:inputType="none"
+                    android:popupBackground="@color/colorGrey"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutCharacter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/colorWhite"
+                android:textColorHint="@color/colorWhite"
+                android:theme="@style/InputStyle"
+                app:errorTextColor="@color/colorRedError">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtCharacter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:hint="Character"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="15sp"
+                    android:theme="@style/InputStyle" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnAddCast"
+                android:layout_width="300dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="70dp"
+                android:background="@drawable/btn_round"
+                android:backgroundTint="@color/colorGrey"
+                android:elevation="4dp"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorYellow"
+                android:textSize="17sp"
+                android:theme="@style/ButtonStyle" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

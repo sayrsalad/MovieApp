@@ -231,6 +231,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btnAddActorRole"
+                android:layout_width="300dp"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_round"
+                android:backgroundTint="@color/colorGrey"
+                android:elevation="4dp"
+                android:text="Add Actor"
+                android:textAllCaps="false"
+                android:textColor="@color/colorYellow"
+                android:textSize="17sp"
+                android:theme="@style/ButtonStyle" />
+
+            <Button
                 android:id="@+id/btnUpdateMovie"
                 android:layout_width="300dp"
                 android:layout_height="42dp"
