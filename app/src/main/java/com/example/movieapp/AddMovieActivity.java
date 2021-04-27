@@ -34,6 +34,7 @@ import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Certificate;
 import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
+import com.example.movieapp.Models.Producer;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.muddzdev.styleabletoast.StyleableToast;
@@ -64,6 +65,7 @@ public class AddMovieActivity extends AppCompatActivity {
     private ArrayList<Certificate> certificateArrayList;
     private Certificate certificate;
     private ProgressDialog dialog;
+    private int genre_ID = 0, certificate_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,12 +131,12 @@ public class AddMovieActivity extends AppCompatActivity {
 
         txtGenre.setOnItemClickListener((parent, view, position, rowId) -> {
             Genre g = genreArrayList.get(position);
-            txtGenre.setId(g.getGenre_ID());
+            genre_ID = g.getGenre_ID();
         });
 
         txtCertificate.setOnItemClickListener((parent, view, position, rowId) -> {
             Certificate c = certificateArrayList.get(position);
-            txtCertificate.setId(c.getCertificate_ID());
+            certificate_ID = c.getCertificate_ID();
         });
 
         btnAddMovie.setOnClickListener( v -> {
@@ -315,7 +317,20 @@ public class AddMovieActivity extends AppCompatActivity {
                         actorArrayList.add(actor);
                     }
 
+                    JSONArray producerArray = movieObject.getJSONArray("producer");
+                    ArrayList<Producer> producerArrayList = new ArrayList<Producer>();
+
+                    for ( int a = 0; a < producerArray.length(); a++) {
+                        JSONObject producerObject = producerArray.getJSONObject(a);
+
+                        Producer producer = new Producer();
+                        producer.setProducer_ID(producerObject.getInt("producer_ID"));
+                        producer.setProducer_name(producerObject.getString("producer_name"));
+                        producerArrayList.add(producer);
+                    }
+
                     movie.setActor(actorArrayList);
+                    movie.setProducer(producerArrayList);
 
                     MovieFragment.arrayList.add(0, movie);
 
@@ -355,8 +370,8 @@ public class AddMovieActivity extends AppCompatActivity {
                 map.put("movie_release_date", txtReleaseDate.getText().toString().trim());
                 map.put("movie_film_duration", txtFilmDuration.getText().toString().trim());
                 map.put("movie_additional_info", txtAdditionalInfo.getText().toString().trim());
-                map.put("genre_ID", String.valueOf(txtGenre.getId()));
-                map.put("certificate_ID", String.valueOf(txtCertificate.getId()));
+                map.put("genre_ID", genre_ID+"");
+                map.put("certificate_ID", certificate_ID+"");
                 map.put("movie_poster", bitmapToString(bitmap));
                 map.put("movie_status", "active");
 

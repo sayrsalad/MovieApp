@@ -8,15 +8,6 @@
     android:paddingTop="-10dp"
     android:theme="@style/DialogTheme">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingRight="20dp"
-        android:textSize="20dp"
-        android:text="  "/>
-
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -81,14 +72,36 @@
                 android:includeFontPadding="false"
                 android:text="Info"
                 android:textColor="@color/colorYellow"
-                android:textFontWeight="900" />
+                android:textFontWeight="900"
+                android:layout_marginBottom="6dp"/>
 
             <TextView
                 android:id="@+id/txtDialogAdditionalInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="@string/loremipsum" />
+                android:text="@string/loremipsum"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:includeFontPadding="false"
+                android:text="Producers"
+                android:textColor="@color/colorYellow"
+                android:textFontWeight="900"
+                android:layout_marginBottom="6dp"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/txtProducers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="N/A"
+                android:layout_marginBottom="6dp"
+                android:visibility="gone"/>
 
 
             <TextView
@@ -98,7 +111,8 @@
                 android:includeFontPadding="false"
                 android:text="Casts"
                 android:textColor="@color/colorYellow"
-                android:textFontWeight="900" />
+                android:textFontWeight="900"
+                />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/movieCasts"

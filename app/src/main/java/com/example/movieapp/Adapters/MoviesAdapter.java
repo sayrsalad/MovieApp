@@ -32,6 +32,7 @@ import com.example.movieapp.Fragments.MovieFragment;
 import com.example.movieapp.HomeActivity;
 import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Movie;
+import com.example.movieapp.Models.Producer;
 import com.example.movieapp.R;
 import com.example.movieapp.UpdateMovieActivity;
 import com.muddzdev.styleabletoast.StyleableToast;
@@ -93,6 +94,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
             TextView txtDialogMovieStory = dialog.findViewById(R.id.txtDialogMovieStory);
             TextView txtDialogGenreDurationDate = dialog.findViewById(R.id.txtDialogGenreDurationDate);
             TextView txtDialogAdditionalInfo = dialog.findViewById(R.id.txtDialogAdditionalInfo);
+            TextView txtProducers = dialog.findViewById(R.id.txtProducers);
 
             RecyclerView movieCasts = dialog.findViewById(R.id.movieCasts);
             movieCasts.setLayoutManager(new GridLayoutManager(dialog.getContext(), 3));
@@ -102,6 +104,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieHolde
             txtDialogMovieStory.setText(movie.getMovie_story());
             txtDialogGenreDurationDate.setText(movie.getGenre_name() + " | " + durationBuilder(movie.getMovie_film_duration()) + " | " + movie.getMovie_release_date());
             txtDialogAdditionalInfo.setText(movie.getMovie_additional_info());
+
+            String strProducers;
+            ArrayList<Producer> producerArrayList = movie.getProducer();
+
+            for ( int a = 0; a < producerArrayList.size(); a++) {
+                txtProducers.setText(producerArrayList.get(a).getProducer_name());
+                if (a+1 != producerArrayList.size()) {
+                    txtProducers.setText(txtProducers.getText()+", ");
+                }
+
+            }
 
             CastsAdapter castsAdapter = new CastsAdapter(dialog.getContext(), actors);
             movieCasts.setAdapter(castsAdapter);

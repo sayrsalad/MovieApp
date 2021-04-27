@@ -40,6 +40,7 @@ import com.example.movieapp.Models.Actor;
 import com.example.movieapp.Models.Certificate;
 import com.example.movieapp.Models.Genre;
 import com.example.movieapp.Models.Movie;
+import com.example.movieapp.Models.Producer;
 import com.example.movieapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -167,7 +168,20 @@ public class MovieFragment extends Fragment implements MoviesAdapter.OnItemListe
                             actorArrayList.add(actor);
                         }
 
+                        JSONArray producerArray = movieObject.getJSONArray("producer");
+                        ArrayList<Producer> producerArrayList = new ArrayList<Producer>();
+
+                        for ( int a = 0; a < producerArray.length(); a++) {
+                            JSONObject producerObject = producerArray.getJSONObject(a);
+
+                            Producer producer = new Producer();
+                            producer.setProducer_ID(producerObject.getInt("producer_ID"));
+                            producer.setProducer_name(producerObject.getString("producer_name"));
+                            producerArrayList.add(producer);
+                        }
+
                         movie.setActor(actorArrayList);
+                        movie.setProducer(producerArrayList);
 
                         arrayList.add(movie);
                     }

@@ -8,14 +8,6 @@
     android:layout_margin="10dp"
     android:theme="@style/DialogTheme">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:paddingRight="20dp"
-        android:textSize="20dp"
-        android:text="  "/>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -51,13 +43,16 @@
                 android:layout_marginTop="10dp"
                 android:text="Actor Notes"
                 android:textFontWeight="600"
-                android:includeFontPadding="false"/>
+                android:includeFontPadding="false"
+                android:textColor="@color/colorYellow"/>
             
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtDialogActorNotes"
-                android:text="@string/loremipsum"/>
+                android:text="@string/loremipsum"
+                android:includeFontPadding="false"
+                android:layout_marginBottom="6dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -65,7 +60,8 @@
                 android:layout_marginTop="10dp"
                 android:text="Movies"
                 android:textFontWeight="600"
-                android:includeFontPadding="false"/>
+                android:includeFontPadding="false"
+                android:textColor="@color/colorYellow"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

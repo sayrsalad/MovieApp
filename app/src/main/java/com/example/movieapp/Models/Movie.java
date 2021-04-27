@@ -14,6 +14,24 @@ public class Movie  {
     private String genre_name;
     private String certificate_name;
     private ArrayList<Actor> arrayList;
+
+    public ArrayList<Actor> getArrayList() {
+        return arrayList;
+    }
+
+    public void setArrayList(ArrayList<Actor> arrayList) {
+        this.arrayList = arrayList;
+    }
+
+    public ArrayList<Producer> getProducer() {
+        return producerArrayList;
+    }
+
+    public void setProducer(ArrayList<Producer> producerArrayList) {
+        this.producerArrayList = producerArrayList;
+    }
+
+    private ArrayList<Producer> producerArrayList;
     private Genre genre;
     private Certificate certificate;
 
